@@ -4,10 +4,8 @@ from bs4 import BeautifulSoup
 import requests
 
 
-# Prend en paramètre le mot que l'on recherche et le retourne converti, de façon à ce qu'on puisse le donner à la
-# fonction extraction_html (qui requiert qu'il soit en iso-8859-1)<br>
-# Fonction utilisée seulement dans extraction_html()
-# noinspection SpellCheckingInspection
+# Fonction permettant l'insertion du mot rq_word dans l'URL lors de la requete à jdm
+# Appelée seulement dans extraction_html
 def conversion_mot(rq_word):
     conversion_partielle = rq_word.encode('iso-8859-1')
     resultat = re.search("b[\"'](.*)[\"']$", str(conversion_partielle))
@@ -17,8 +15,7 @@ def conversion_mot(rq_word):
     return resultat
 
 
-# extraction_html prend le mot que l'on recherche en paramètre et retourne le code html correspondant depuis
-# rezo-dump (entre les balises code)
+# Prend rq_word (mot recherché) et retourne le code html correspondant depuis http://www.jeuxdemots.org/rezo-dump
 def extraction_html(rq_word, type_relation):
     rq_word_converti = conversion_mot(rq_word)
     if type_relation == 'all':
@@ -26,13 +23,18 @@ def extraction_html(rq_word, type_relation):
             'http://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=' + rq_word_converti + '&rel=')
     else:
         html = requests.get(
-            'http://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=' + rq_word_converti + '&rel=' + type_relation)
+            'http://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=' + rq_word_converti + '&rel=' +
+            type_relation)
     encoding = html.encoding if "charset" in html.headers.get("content-type", "").lower() else None
     soup = BeautifulSoup(html.content, 'html.parser', from_encoding='iso-8859-1')
     texte_brut = soup.find_all('code')
     return texte_brut
 
 
+# Prend le mot ainsi que le type de la relation (pour toutes les relations alors type_relation = 'all').
+# Retourne un tableau DataFrame avec les colonnes 'id_relation', 'lautre_noeud', 'type_relation',
+# 'poids_relation', 'sens_relation'
+# Ce tableau contient les relations sortantes et entrantes du mot, récupérées depuis jdm.
 def creation_tab_relations(mot, type_relation):
     texte_brut = extraction_html(mot, type_relation)
     tab_eids = pd.DataFrame(columns=('eid', 'name', 'type', 'w', 'formatted name'))
@@ -66,11 +68,6 @@ def creation_tab_relations(mot, type_relation):
                                                      }), ignore_index=True)
     tab_eids['w'] = tab_eids['w'].astype(int) / max(tab_eids['w'].astype(int))
     tab_rids['w'] = tab_rids['w'].astype(int) / max(tab_rids['w'].astype(int))
-
-    # Signification sens_relation :
-    # Une relation 'sortante' signifie que le noeud1 est le mot passé en paramètre et le
-    # noeud2 est l'autre mot : noeud1 ---> noeud2 (---> signifie relation)
-    # Pour les relations 'entrante' c'est l'inverse
 
     relations = pd.DataFrame(
         columns=('id_relation', 'lautre_noeud', 'type_relation', 'poids_relation', 'sens_relation'))
