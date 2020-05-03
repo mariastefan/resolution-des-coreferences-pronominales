@@ -1,0 +1,4 @@
+Le chien est tombé dans le puits. Il a aboyé toute la nuit.
+[Il, [aboyé], [['->', chien, tombé]]]
+Le chien est tombé dans le puits. Il est profond.
+[Il, [profond], [['->', chien, tombé]]]
