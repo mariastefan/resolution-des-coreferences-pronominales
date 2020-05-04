@@ -102,15 +102,11 @@ def relations_mot(mot: str, type_relation: str, cache: int):
         return relations
 
     if cache == 0:
-        print("je suis dans if")
         return sans_cache(mot, type_relation)
     elif cache == 1 and (
             not os.path.isdir('./cache') or not os.path.isfile('./cache/' + mot + '_' + type_relation + '.csv')):
-        print("je suis dans elif1")
         return sans_cache(mot, type_relation)
     elif cache == 1:
-        print("je suis dans elif2")
         return pd.read_csv('./cache/' + mot + '_' + type_relation + '.csv')
     else:
-        print("je suis dans else")
         sys.exit("cache doit etre egal a 0 ou 1")
