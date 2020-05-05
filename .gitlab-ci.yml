@@ -1,0 +1,22 @@
+stages:
+  - test
+
+.test:
+  image: python:3.8
+  stage: test
+  script:
+  - apt-get update -qy
+  - pip3 install -r requirements.txt
+  - python3 -m spacy download fr
+  - python3 ./resolution_coreferences_pronominales/__main__.py
+
+test_master:
+  extends: .test
+  only:
+    refs:
+      - master
+
+test_manual:
+  extends: .test
+  when: manual
+
