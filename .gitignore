@@ -1,4 +1,3 @@
 .idea/
 __pycache__/
-*.pkl
-*.csv
+resolution_coreferences_pronominales/cache/**

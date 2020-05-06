@@ -1,5 +1,5 @@
 import re
-import pandas as pd
+import csv
 from bs4 import BeautifulSoup
 import requests
 import os
@@ -44,11 +44,14 @@ def relations_mot(mot: str, type_relation: str, cache: int):
         tab_eids = {}
         tab_rids = {}
         lignes_noeuds_et_relations = re.findall("[re];[0-9]*;.*", str(texte_brut))
+        eid_mot = re.search("e;([0-9]*);.*", lignes_noeuds_et_relations[0]).group(1)
         stop = 0
         for a in lignes_noeuds_et_relations:
             if stop == 0:
-                result_noeud = re.search("e;([0-9]*);'(.*)';([0-9]*);([0-9]*);*'*([^']*)'*", str(a))
+                result_noeud = re.search("e;([0-9]*);'(.*)';([0-9]*);(-*[0-9]*);*'*([^']*)'*", str(a))
                 if result_noeud:
+                    if len(tab_eids) != 0 and result_noeud.group(1) in tab_eids.keys():
+                        raise KeyError("Probleme dans jdm : eid doit etre unique")
                     poids = result_noeud.group(4)
                     if not poids or poids == '':
                         poids = '0'
@@ -56,16 +59,32 @@ def relations_mot(mot: str, type_relation: str, cache: int):
                                                        result_noeud.group(3),
                                                        poids,
                                                        result_noeud.group(5)]
-            result_rel = re.search("r;([0-9]*);([0-9]*);([0-9]*);([0-9]*);([0-9]*)", str(a))
+            result_rel = re.search("r;([0-9]*);([0-9]*);([0-9]*);([0-9]*);(-*[0-9]*)", str(a))
             if result_rel:
                 stop = 1
                 poids = result_rel.group(5)
                 if not poids or poids == '':
                     poids = '0'
-                tab_rids[result_rel.group(1)] = [result_rel.group(2),
-                                                 result_rel.group(3),
-                                                 result_rel.group(4),
-                                                 poids]
+                if len(tab_rids) != 0 and result_rel.group(1) in tab_rids.keys():
+                    del tab_rids[result_rel.group(1)]
+                    tab_rids[result_rel.group(1) + '_entrante'] = [result_rel.group(2),
+                                                                   result_rel.group(3),
+                                                                   result_rel.group(4),
+                                                                   poids,
+                                                                   'entrante+sortante']
+                    tab_rids[result_rel.group(1) + '_sortante'] = [result_rel.group(2),
+                                                                   result_rel.group(3),
+                                                                   result_rel.group(4),
+                                                                   poids,
+                                                                   'entrante+sortante']
+                else:
+                    tab_rids[result_rel.group(1)] = [result_rel.group(2),
+                                                     result_rel.group(3),
+                                                     result_rel.group(4),
+                                                     poids]
+                    if result_rel.group(1) not in tab_rids.keys():
+                        raise KeyError(
+                            "Creation tab_rids : la cref " + str(result_rel.group(1)) + " n'a pas pu etre cree")
         max_positif = 0
         min_negatif = 0
         for i in range(len(list(tab_rids.values()))):
@@ -75,7 +94,7 @@ def relations_mot(mot: str, type_relation: str, cache: int):
             if poids < 0 and poids < min_negatif:
                 min_negatif = poids
 
-        relations = {}
+        relations_dico = {}
 
         for rid in list(tab_rids.keys()):
             poids = int(tab_rids[rid][3])
@@ -83,27 +102,33 @@ def relations_mot(mot: str, type_relation: str, cache: int):
                 poids = (poids / min_negatif) * (-1)
             else:
                 poids = poids / max_positif
-            for eid in list(tab_eids.keys()):
-                if tab_rids[rid][0] == eid:
-                    relations[rid] = [tab_eids[tab_rids[rid][0]][0],
-                                      tab_rids[rid][2],
-                                      poids,
-                                      'sortante']
-                elif tab_rids[rid][1] == eid:
-                    relations[rid] = [tab_eids[tab_rids[rid][1]][0],
-                                      tab_rids[rid][2],
-                                      poids,
-                                      'entrante']
+
+            if len(tab_rids[rid]) == 5 and tab_rids[rid][0] == tab_rids[rid][1]:
+                res = re.search(r'.*(sortante|entrante)', rid)
+                relations_dico[rid] = [tab_eids[tab_rids[rid][0]][0],
+                                       tab_rids[rid][2],
+                                       poids,
+                                       res.group(1)]
+            elif tab_rids[rid][0] == eid_mot:
+                relations_dico[rid] = [tab_eids[tab_rids[rid][1]][0],
+                                       tab_rids[rid][2],
+                                       poids,
+                                       'sortante']
+            elif tab_rids[rid][1] == eid_mot:
+                relations_dico[rid] = [tab_eids[tab_rids[rid][0]][0],
+                                       tab_rids[rid][2],
+                                       poids,
+                                       'entrante']
 
         if not os.path.isdir('./cache'):
             try:
                 os.mkdir("./cache")
             except OSError:
                 print("Creation of the directory cache failed")
-        fichier = open('./cache/' + mot_tmp + '_' + type_relation_tmp + '.pkl', "wb")
-        pickle.dump(relations, fichier)
-        fichier.close()
-        return relations
+        fichier_cache = open('./cache/' + mot_tmp + '_' + type_relation_tmp + '.pkl', "wb")
+        pickle.dump(relations_dico, fichier_cache)
+        fichier_cache.close()
+        return relations_dico
 
     if cache == 0:
         return sans_cache(mot, type_relation)
