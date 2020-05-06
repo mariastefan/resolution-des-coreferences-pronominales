@@ -113,8 +113,6 @@ def relations_mot(mot: str, type_relation: str, cache: int):
     elif cache == 1:
         fichier = open('./cache/' + mot + '_' + type_relation + '.pkl', "rb")
         relations = pickle.load(fichier)
-        print(relations)
-        print(type(relations))
         fichier.close()
         return relations
     else:
