@@ -6,7 +6,7 @@ import os
 
 if __name__ == '__main__':
     # Paramètres à choisir :
-    mot = 'amour'
+    mot = 'adsqmour'
     cache = 0
     relation = 'all'
     nb_boucle = 1
@@ -24,4 +24,7 @@ if __name__ == '__main__':
     # Imprime la durée d'exécution de extraction_mot.relations_mot (en moyenne)
     print("relations_mot --- %s seconds --- par boucle en moyenne" % (time1 / nb_boucle))
     print("temps total --- " + str((time.time() - start_time_total)) + " secondes ---, " + str(nb_boucle) + " boucle")
-    print("Il y a " + str(len(relations_mot)) + " entrées dans relations_mot")
+    if relations_mot is None:
+        print("Le mot " + mot + " n'existe pas sur jeuxdemots.org !")
+    else:
+        print("Il y a " + str(len(relations_mot)) + " entrées dans relations_mot")
