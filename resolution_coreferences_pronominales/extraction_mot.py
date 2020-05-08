@@ -144,3 +144,25 @@ def relations_mot(mot: str, type_relation: str, cache: int):
         return relations
     else:
         sys.exit("cache doit etre egal a 0 ou 1")
+
+
+# Supprime les fichiers existants dans le dossier cache
+def vider_cache():
+    if os.path.isdir('./cache'):
+        for filename in os.listdir('./cache'):
+            chemin_fichier = os.path.join('./cache', filename)
+            try:
+                os.remove(chemin_fichier)
+            except Exception as e:
+                print('Impossible de supprimer le fichier %s. Motif : %s' % (chemin_fichier, e))
+
+
+# Supprime le dossier cache
+def supprimer_cache():
+    if os.path.isdir('./cache'):
+        if len(os.listdir('./cache')) != 0:
+            vider_cache()
+        try:
+            os.rmdir('./cache')
+        except Exception as e:
+            print('Impossible de supprimer le dossier cache. Motif : %s' % e)
