@@ -41,9 +41,13 @@ def extraction_html(rq_word: str, type_relation: str):
 def relations_mot(mot: str, type_relation: str, cache: int):
     def sans_cache(mot_tmp, type_relation_tmp):
         texte_brut = extraction_html(mot_tmp, type_relation_tmp)
-        lignes_noeuds_et_relations = re.findall("[re];[0-9]*;.*", str(texte_brut))
-        if not lignes_noeuds_et_relations:
-            return None
+        try:
+            lignes_noeuds_et_relations = re.findall("[re];[0-9]*;.*", str(texte_brut))
+            if not lignes_noeuds_et_relations:
+                raise ValueError("Le mot " + mot_tmp + " n'existe pas sur jeuxdemots.org !")
+        except ValueError as err:
+            print("ValueError : "+str(err))
+            sys.exit()
         tab_eids = {}
         tab_rids = {}
         eid_mot = re.search("e;([0-9]*);.*", lignes_noeuds_et_relations[0]).group(1)

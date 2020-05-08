@@ -4,7 +4,7 @@ nlp = spacy.load('fr')
 
 
 def antecedents_et_verbe_des_pronoms(phrase):
-    phrase = nlp(phrase)
+    doc = nlp(phrase)
     noms = []
     pronoms = []
     antecedents = []
@@ -35,4 +35,4 @@ def antecedents_et_verbe_des_pronoms(phrase):
                         relations_pronom.extend([jeton, ['<-', jeton.head]])
                         pronoms.extend([[jeton.head], jeton, noms])  # relations entrantes vesrs le pronom
                     break
-    return antecedents
+    return [antecedents,relationsPronom]
