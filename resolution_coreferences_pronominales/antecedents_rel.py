@@ -30,9 +30,9 @@ def antecedents_et_verbe_des_pronoms(phrase):
                     noms_ant = []
                     if jeton.dep_ == 'nsubj':
                         relations_pronom.extend([jeton, ['->', jeton.head]])
-                        pronoms.extend([jeton, [jeton.head], noms])  # relations sortantantes du pronom
+                        pronoms.extend([jeton, [jeton.head], noms])  # relations sortant du pronom
                     if jeton.dep_ == 'iobj':
                         relations_pronom.extend([jeton, ['<-', jeton.head]])
-                        pronoms.extend([[jeton.head], jeton, noms])  # relations entrantes vesrs le pronom
+                        pronoms.extend([[jeton.head], jeton, noms])  # relations entrantes vers le pronom
                     break
-    return [antecedents,relationsPronom]
+    return [antecedents, relations_pronom]

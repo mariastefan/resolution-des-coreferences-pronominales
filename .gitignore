@@ -1,6 +1,5 @@
 .idea/
 __pycache__/
-resolution_coreferences_pronominales/cache/**
 .vscode/
 resolution_coreferences_pronominales/.idea/
 resolution_coreferences_pronominales/.vscode/
