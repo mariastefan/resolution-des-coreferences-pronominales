@@ -4,7 +4,7 @@ import time
 if __name__ == '__main__':
     # Paramètres à choisir :
     mot = 'chien'
-    cache = 0
+    cache = False
     relation = 'all'
     nb_boucle = 1
 
@@ -16,7 +16,7 @@ if __name__ == '__main__':
         relations_mot = extraction_mot.relations_mot(mot, relation, cache)
         time1 += time.time() - start_time
 
-    # Imprime la durée d'exécution de extraction_mot.relations_mot (en moyenne)
+    # Imprime la durée d'exécution d'extraction_mot.relations_mot (en moyenne)
     print("relations_mot(" + mot + ", " + relation + ", " + str(cache) + " --- " + str(
         (time1 / nb_boucle)) + " secondes --- par boucle en moyenne")
     print("temps total --- " + str((time.time() - start_time_total)) + " secondes --- pour " + str(

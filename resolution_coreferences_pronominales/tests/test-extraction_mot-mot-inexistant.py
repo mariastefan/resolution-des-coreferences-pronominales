@@ -4,7 +4,7 @@ if __name__ == '__main__':
     # Paramètres à choisir :
     mot = 'adsqmour'
 
-    relations_mot = extraction_mot.relations_mot(mot, 'all', 0)
+    relations_mot = extraction_mot.relations_mot(mot, 'all', False)
     if relations_mot is None:
         print("Le mot " + mot + " n'existe pas sur jeuxdemots.org !")
     else:
