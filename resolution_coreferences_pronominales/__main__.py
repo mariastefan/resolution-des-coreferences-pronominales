@@ -1,8 +1,16 @@
 import extraction_mot
-import antecedents_rel
+import coreferences_phrase
 
 if __name__ == '__main__':
-    print(antecedents_rel.antecedents_et_verbe_des_pronoms("Le chien est tombé dans le puits. Il est profond"))
-    for e in extraction_mot.relations_entre_mots(["chien", "puits", "profond"], True):
+    liste_mots = ['chien', 'puits', 'museau']
+    print('Voici les relations entre ' + str(liste_mots) + ' extraites grace à extraction_mot.relations_entre_mots([\'chien\', \'puits\', \'museau\'], True)')
+    for e in extraction_mot.relations_entre_mots(liste_mots, True):
         print(e)
-    # Il faut maintenant faire le lien entre ces fonctions
+    phrase_tmp = '\"Le chien est tombé dans le puits. Il s\'est cassé le museau. Il va ainsi retenir la leçon.\"'
+    infos = coreferences_phrase.infos_pronoms(phrase_tmp)
+    print('\nLa phrase et les informations sur ses pronoms :')
+    print(phrase_tmp)
+    for pronom in infos:
+        print(pronom)
+
+    print('\nMaintenant il faut trouver les coréférences des pronoms grace à ces informations.')
