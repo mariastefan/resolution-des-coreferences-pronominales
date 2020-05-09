@@ -6,6 +6,13 @@ import sys
 import pickle
 
 
+def mot_sans_espaces(mot: str):
+    if ' ' in mot:
+        return mot.replace(' ', '_')
+    else:
+        return mot
+
+
 # Fonction permettant l'insertion du mot rq_word dans l'URL lors de la requete à jdm
 # Il n'y a pas de raison d'utiliser cette fonction seule
 def conversion_mot(rq_word: str):
@@ -132,7 +139,9 @@ def relations_mot(mot: str, type_relation: str, cache: bool):
                 os.mkdir(chemin_absolu + '/cache')
             except OSError:
                 print('La création du dossier cache a échoué')
-        fichier_cache = open(chemin_absolu + '/cache/' + mot_tmp + '_' + type_relation_tmp + '.pkl', 'wb')
+
+        fichier_cache = open(chemin_absolu + '/cache/' + mot_sans_espaces(mot_tmp) + '_' + type_relation_tmp + '.pkl',
+                             'wb')
         pickle.dump(relations_list, fichier_cache)
         fichier_cache.close()
         return relations_list
@@ -142,10 +151,10 @@ def relations_mot(mot: str, type_relation: str, cache: bool):
         return sans_cache(mot, type_relation)
     elif cache and (
             not os.path.isdir(chemin_absolu + '/cache') or not os.path.isfile(
-        chemin_absolu + '/cache/' + mot + '_' + type_relation + '.pkl')):
+        chemin_absolu + '/cache/' + mot_sans_espaces(mot) + '_' + type_relation + '.pkl')):
         return sans_cache(mot, type_relation)
     elif cache:
-        fichier = open(chemin_absolu + '/cache/' + mot + '_' + type_relation + '.pkl', 'rb')
+        fichier = open(chemin_absolu + '/cache/' + mot_sans_espaces(mot) + '_' + type_relation + '.pkl', 'rb')
         relations = pickle.load(fichier)
         fichier.close()
         return relations
@@ -159,28 +168,32 @@ def relations_mot(mot: str, type_relation: str, cache: bool):
 # Retourne une liste avec toutes les relations entre les mots de la liste
 def relations_entre_mots(mots: list, cache: bool):
     relations_mots_liste = []
-    for i in range(len(mots) - 1):
+    for i in range(len(mots)):
+        mots_inexistants = []
         mot_dico = relations_mot(mots[i], 'all', cache)
-        if mot_dico is None:
+        while mot_dico is None and i < len(mots):
+            mots_inexistants.append(i)
             i += 1
-        for j in range(i + 1, len(mots)):
-            for relation in mot_dico:
-                if mots[j] in relation:
-                    trouve = 0
-                    for k in range(len(relations_mots_liste)):
-                        if mots[i] == relations_mots_liste[k][0] and mots[j] == relations_mots_liste[k][1] and \
-                                relation[3] == 'sortante':
-                            relations_mots_liste[k][2][int(relation[1])] = relation[2]
-                            trouve = 1
-                        elif mots[j] == relations_mots_liste[k][0] and mots[i] == relations_mots_liste[k][1] and \
-                                relation[3] == 'entrante':
-                            relations_mots_liste[k][2][int(relation[1])] = relation[2]
-                            trouve = 1
-                    if trouve == 0:
-                        if relation[3] == 'sortante':
-                            relations_mots_liste.append([mots[i], mots[j], {int(relation[1]): relation[2]}])
-                        else:
-                            relations_mots_liste.append([mots[j], mots[i], {int(relation[1]): relation[2]}])
+            mot_dico = relations_mot(mots[i], 'all', cache)
+        for j in range(len(mots)):
+            if j != i and j not in mots_inexistants:
+                for relation in mot_dico:
+                    if mots[j] in relation:
+                        trouve = 0
+                        for k in range(len(relations_mots_liste)):
+                            if mots[i] == relations_mots_liste[k][0] and mots[j] == relations_mots_liste[k][1] and \
+                                    relation[3] == 'sortante':
+                                relations_mots_liste[k][2][int(relation[1])] = relation[2]
+                                trouve = 1
+                            elif mots[j] == relations_mots_liste[k][0] and mots[i] == relations_mots_liste[k][1] and \
+                                    relation[3] == 'entrante':
+                                relations_mots_liste[k][2][int(relation[1])] = relation[2]
+                                trouve = 1
+                        if trouve == 0:
+                            if relation[3] == 'sortante':
+                                relations_mots_liste.append([mots[i], mots[j], {int(relation[1]): relation[2]}])
+                            else:
+                                relations_mots_liste.append([mots[j], mots[i], {int(relation[1]): relation[2]}])
     return relations_mots_liste
 
 
