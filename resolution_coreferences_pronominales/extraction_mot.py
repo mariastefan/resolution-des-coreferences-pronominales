@@ -13,6 +13,7 @@ def conversion_mot(rq_word: str):
     resultat = re.search("b[\"'](.*)[\"']$", str(conversion_partielle))
     resultat = resultat.group(1)
     resultat = resultat.replace("'", '%27')
+    resultat = resultat.replace(' ', '+')
     resultat = resultat.replace('\\x', '%')
     return resultat
 
@@ -47,7 +48,8 @@ def relations_mot(mot: str, type_relation: str, cache: bool):
         try:
             lignes_noeuds_et_relations = re.findall('[re];[0-9]*;.*', str(texte_brut))
             if not lignes_noeuds_et_relations:
-                raise ValueError('Le mot ' + mot_tmp + ' n\'existe pas sur jeuxdemots.org !')
+                print('Le mot \"' + mot + ' n\'existe pas dans jeuxdemots.org')
+                return None
         except ValueError as err:
             print(err)
             sys.exit()
@@ -114,12 +116,6 @@ def relations_mot(mot: str, type_relation: str, cache: bool):
             else:
                 poids = poids / max_positif
 
-            # if len(tab_rids[rid]) == 5 and tab_rids[rid][0] == tab_rids[rid][1]:
-            #     res = re.search(r'.*(sortante|entrante)', rid)
-            #     relations_list[rid] = [tab_eids[tab_rids[rid][0]][0],
-            #                            tab_rids[rid][2],
-            #                            poids,
-            #                            res.group(1)]
             if tab_rids[rid][0] == eid_mot:
                 relations_list.append([tab_eids[tab_rids[rid][1]][0],
                                        tab_rids[rid][2],
@@ -130,24 +126,26 @@ def relations_mot(mot: str, type_relation: str, cache: bool):
                                        tab_rids[rid][2],
                                        poids,
                                        'entrante'])
-
-        if not os.path.isdir('./cache'):
+        chemin_absolu = os.path.dirname(os.path.abspath(__file__))
+        if not os.path.isdir(chemin_absolu + '/cache'):
             try:
-                os.mkdir('./cache')
+                os.mkdir(chemin_absolu + '/cache')
             except OSError:
                 print('La création du dossier cache a échoué')
-        fichier_cache = open('./cache/' + mot_tmp + '_' + type_relation_tmp + '.pkl', 'wb')
+        fichier_cache = open(chemin_absolu + '/cache/' + mot_tmp + '_' + type_relation_tmp + '.pkl', 'wb')
         pickle.dump(relations_list, fichier_cache)
         fichier_cache.close()
         return relations_list
 
+    chemin_absolu = os.path.dirname(os.path.abspath(__file__))
     if not cache:
         return sans_cache(mot, type_relation)
-    elif cache == True and (
-            not os.path.isdir('./cache') or not os.path.isfile('./cache/' + mot + '_' + type_relation + '.pkl')):
+    elif cache and (
+            not os.path.isdir(chemin_absolu + '/cache') or not os.path.isfile(
+        chemin_absolu + '/cache/' + mot + '_' + type_relation + '.pkl')):
         return sans_cache(mot, type_relation)
     elif cache:
-        fichier = open('./cache/' + mot + '_' + type_relation + '.pkl', 'rb')
+        fichier = open(chemin_absolu + '/cache/' + mot + '_' + type_relation + '.pkl', 'rb')
         relations = pickle.load(fichier)
         fichier.close()
         return relations
@@ -163,6 +161,8 @@ def relations_entre_mots(mots: list, cache: bool):
     relations_mots_liste = []
     for i in range(len(mots) - 1):
         mot_dico = relations_mot(mots[i], 'all', cache)
+        if mot_dico is None:
+            i += 1
         for j in range(i + 1, len(mots)):
             for relation in mot_dico:
                 if mots[j] in relation:
@@ -186,9 +186,10 @@ def relations_entre_mots(mots: list, cache: bool):
 
 # Supprime les fichiers existants dans le dossier cache
 def vider_cache():
-    if os.path.isdir('./cache'):
-        for filename in os.listdir('./cache'):
-            chemin_fichier = os.path.join('./cache', filename)
+    chemin_absolu = os.path.dirname(os.path.abspath(__file__))
+    if os.path.isdir(chemin_absolu + '/cache'):
+        for filename in os.listdir(chemin_absolu + '/cache'):
+            chemin_fichier = os.path.join(chemin_absolu + '/cache', filename)
             try:
                 os.remove(chemin_fichier)
             except Exception as e:
@@ -197,10 +198,11 @@ def vider_cache():
 
 # Supprime le dossier cache
 def supprimer_cache():
-    if os.path.isdir('./cache'):
-        if len(os.listdir('./cache')) != 0:
+    chemin_absolu = os.path.dirname(os.path.abspath(__file__))
+    if os.path.isdir(chemin_absolu + '/cache'):
+        if len(os.listdir(chemin_absolu + '/cache')) != 0:
             vider_cache()
         try:
-            os.rmdir('./cache')
+            os.rmdir(chemin_absolu + '/cache')
         except Exception as e:
             print('Impossible de supprimer le dossier cache. Motif : %s' % e)
