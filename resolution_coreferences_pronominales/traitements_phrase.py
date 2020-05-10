@@ -1,5 +1,6 @@
 import spacy
 
+
 # Prend une phrase et retourne des informations sur ses pronoms
 # Tous les mots sont lemmatisés
 # obj/obl : à quoi fait référence le verbe (ex : "Le chien s'est cassé le museau", "museau" : obj de "cassé")
@@ -81,3 +82,10 @@ def infos_pronoms(phrase):
             j += 1
         i += 1
     return infos
+
+
+def coreferences(phrase):
+    infos = infos_pronoms(phrase)
+    for e in infos:
+        for i in range(len(e)):
+            print(e[i])
