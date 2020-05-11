@@ -41,20 +41,62 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
             else:
                 infos[k][2]['sens'] = 'sortante'
 
-            for enfant_verbe in verbe.children:
-                # Nous enlevons 'nsubj' et 'expl' (pronoms) car nous avons déjà cette info, ainsi que les ponctuations
-                if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' \
-                        and enfant_verbe.dep_ != 'punct' and enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'iobj':
-                    # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi ses enfants
-                    if enfant_verbe.dep_ == 'xcomp':
-                        infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
-                        for enfant_complement in enfant_verbe.children:
-                            if enfant_verbe.dep_ != 'aux':
-                                infos[k][2][enfant_verbe.dep_][1][enfant_complement.dep_] = enfant_complement.lemma_
-                    elif enfant_verbe not in infos[k][2].keys():
-                        infos[k][2][enfant_verbe.dep_] = enfant_verbe.lemma_
+            if pronom.dep_ != 'iobj' and 'iobj' not in [enfant_verbe.dep_ for enfant_verbe in verbe.children]:
+                for enfant_verbe in verbe.children:
+                    # Nous enlevons 'nsubj' et 'expl' (pronoms) car nous avons déjà cette info, ainsi que
+                    # les ponctuations
+                    if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' and enfant_verbe.dep_ != 'punct' \
+                            and enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'iobj':
+                        # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi ses enfants
+                        if enfant_verbe.dep_ == 'xcomp':
+                            infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
+                            for enfant_complement in enfant_verbe.children:
+                                if enfant_verbe.dep_ != 'aux':
+                                    infos[k][2][enfant_verbe.dep_][1][enfant_complement.dep_] = enfant_complement.lemma_
+                        elif enfant_verbe not in infos[k][2].keys():
+                            infos[k][2][enfant_verbe.dep_] = enfant_verbe.lemma_
+                        else:
+                            infos[k][2][enfant_verbe.dep_] = [infos[k][2][enfant_verbe], enfant_verbe]
+            else:
+                if pronom.dep_ == 'iobj':
+                    for enfant_verbe in verbe.children:
+                        # Nous enlevons 'nsubj' et 'expl' (pronoms) car nous avons déjà cette info, ainsi que
+                        # les ponctuations
+                        if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' \
+                                and enfant_verbe.dep_ != 'punct' and enfant_verbe.dep_ != 'aux' \
+                                and enfant_verbe.dep_ != 'iobj':
+                            # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi
+                            # ses enfants
+                            if enfant_verbe.dep_ == 'xcomp':
+                                infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
+                                for enfant_complement in enfant_verbe.children:
+                                    if enfant_verbe.dep_ != 'aux':
+                                        infos[k][2][enfant_verbe.dep_][1][
+                                            enfant_complement.dep_] = enfant_complement.lemma_
+                            elif enfant_verbe not in infos[k][2].keys():
+                                infos[k][2][enfant_verbe.dep_] = enfant_verbe.lemma_
+                            else:
+                                infos[k][2][enfant_verbe.dep_] = [infos[k][2][enfant_verbe], enfant_verbe]
                     else:
-                        infos[k][2][enfant_verbe.dep_] = [infos[k][2][enfant_verbe], enfant_verbe]
+                        for enfant_verbe in verbe.children:
+                            # Nous enlevons 'nsubj' et 'expl' (pronoms) car nous avons déjà cette info, ainsi que
+                            # les ponctuations
+                            if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' \
+                                    and enfant_verbe.dep_ != 'punct' and enfant_verbe.dep_ != 'aux' \
+                                    and enfant_verbe.dep_ != 'iobj' and enfant_verbe.dep_ != 'obj' \
+                                    and enfant_verbe.dep_ != 'obl':
+                                # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi
+                                # ses enfants
+                                if enfant_verbe.dep_ == 'xcomp':
+                                    infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
+                                    for enfant_complement in enfant_verbe.children:
+                                        if enfant_verbe.dep_ != 'aux':
+                                            infos[k][2][enfant_verbe.dep_][1][
+                                                enfant_complement.dep_] = enfant_complement.lemma_
+                                elif enfant_verbe not in infos[k][2].keys():
+                                    infos[k][2][enfant_verbe.dep_] = enfant_verbe.lemma_
+                                else:
+                                    infos[k][2][enfant_verbe.dep_] = [infos[k][2][enfant_verbe], enfant_verbe]
 
             # On fait une boucle jusqu'au pronom courant pour prendre tous les antécédents possibles du pronom
             j = 0
@@ -110,74 +152,41 @@ def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
             # pronom (infos_pour_un_pronom[1]) et les mots qui ont un lien avec le pronom (dependances_pronom)
             relations = extraction_mot.relations_entre_mots(infos_pour_un_pronom[1] + dependances_pronom, cache)
 
-            # Cas où les relations sont sortantes
-            if infos_pour_un_pronom[2]['sens'] == 'sortante':
-                relations_interessantes = {}
+            relations_interessantes = {}
 
-                # Pour chaque relation trouvée précédemment on ajoute à relations_interessantes celles dont le premier
-                # noeud est dans la liste des antécédents possibles et le 2nd noeud dans les mots en lien avec le pronom
-                for rel in relations:
-                    if rel[0] in infos_pour_un_pronom[1] and rel[1] in infos_pour_un_pronom[2].values():
-                        relations_interessantes[(rel[0], rel[1])] = mean(rel[2].values())
+            # Pour chaque relation trouvée précédemment on ajoute à relations_interessantes celles dont le premier
+            # noeud est dans la liste des antécédents possibles et le 2nd noeud dans les mots en lien avec le pronom
+            for rel in relations:
+                if rel[0] in infos_pour_un_pronom[1] and rel[1] in infos_pour_un_pronom[2].values():
+                    relations_interessantes[(rel[0], rel[1])] = mean(rel[2].values())
 
-                # Si aucune relation intéressante n'a été trouvée alors le premier antécédent de la liste des
-                # antécédents possibles est gardé par défaut
-                if len(relations_interessantes) == 0:
-                    coreferences.append([pronom, infos_pour_un_pronom[1][0]])
+            # Si aucune relation intéressante n'a été trouvée alors le premier antécédent de la liste des
+            # antécédents possibles est gardé par défaut
+            if len(relations_interessantes) == 0:
+                coreferences.append([pronom, infos_pour_un_pronom[1][0]])
 
-                # Si une seule relation intéressante est trouvée alors nous gardons l'antécédent impliqué
-                # dans cette relation
-                elif len(relations_interessantes) == 1:
-                    coreferences.append([pronom, list(relations_interessantes.keys())[0][0]])
+            # Si une seule relation intéressante est trouvée alors nous gardons l'antécédent impliqué
+            # dans cette relation
+            elif len(relations_interessantes) == 1:
+                coreferences.append([pronom, list(relations_interessantes.keys())[0][0]])
 
-                # Sinon on garde seulement une relation par antécédent potentiel et la moyenne des poids des
-                # relations impliquant cet antécédent
-                else:
-                    poids_antecedents_ajoutes = {}
-                    for rel in relations_interessantes.keys():
-                        if rel[0] not in poids_antecedents_ajoutes.keys():
-                            poids_antecedents_ajoutes[rel[0]] = [relations_interessantes[rel], 1]
-                        else:
-                            poids_antecedents_ajoutes[rel[0]] = \
-                                [poids_antecedents_ajoutes[rel[0]][0] + relations_interessantes[rel],
-                                 poids_antecedents_ajoutes[rel[0]][0] + 1] # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    for antecedent in poids_antecedents_ajoutes:
-                        poids_antecedents_ajoutes[antecedent] = poids_antecedents_ajoutes[antecedent][0] / poids_antecedents_ajoutes[antecedent][1]
-                    index = list(poids_antecedents_ajoutes.values()).index(max(poids_antecedents_ajoutes.values()))
-                    coreferences.append([pronom, list(poids_antecedents_ajoutes.keys())[index]])
+            # Sinon on garde seulement une relation par antécédent potentiel et la moyenne des poids des
+            # relations impliquant cet antécédent
+            else:
+                poids_antecedents_ajoutes = {}
+                for rel in relations_interessantes.keys():
+                    if rel[0] not in poids_antecedents_ajoutes.keys():
+                        poids_antecedents_ajoutes[rel[0]] = [relations_interessantes[rel], 1]
+                    else:
+                        poids_antecedents_ajoutes[rel[0]] = \
+                            [poids_antecedents_ajoutes[rel[0]][0] + relations_interessantes[rel],
+                             poids_antecedents_ajoutes[rel[0]][1] + 1]
+                for antecedent in poids_antecedents_ajoutes:
+                    poids_antecedents_ajoutes[antecedent] = poids_antecedents_ajoutes[antecedent][0] / \
+                                                            poids_antecedents_ajoutes[antecedent][1]
+                index = list(poids_antecedents_ajoutes.values()).index(max(poids_antecedents_ajoutes.values()))
+                coreferences.append([pronom, list(poids_antecedents_ajoutes.keys())[index]])
 
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            # TOUS LES INDICES SONT À VERIFIER pour le cas entrant
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            elif infos_pour_un_pronom[2]['sens'] == 'entrante':
-                relations_interessantes = {}
-
-                # Pour chaque relation trouvée précédemment on ajoute à relations_interessantes celles dont le 2nd noeud
-                # est dans la liste des antécédents possibles et le premier noeud dans les mots en lien avec le pronom
-                for rel in relations:
-                    if rel[1] in infos_pour_un_pronom[1] and rel[0] in infos_pour_un_pronom[2].values():
-                        relations_interessantes[(rel[0], rel[1])] = mean(rel[2].values())
-
-                if len(relations_interessantes) == 0:
-                    # print("Attention, aucune relation intéressante n'a été trouvée sur jdm pour le pronom '" +
-                    #       str(i) + ':' + pronom +
-                    #       "', le premier antécédent a été gardé par défaut, à améliorer dans les prochaines versions.")
-                    coreferences.append([pronom, infos_pour_un_pronom[1][0]])
-                elif len(relations_interessantes) == 1:
-                    coreferences.append([pronom, list(relations_interessantes.keys())[0][0]])
-                else:
-                    poids_antecedents_ajoutes = {}
-                    for rel in relations_interessantes.keys():
-                        if rel[0] not in poids_antecedents_ajoutes.keys():
-                            poids_antecedents_ajoutes[rel[0]] = [relations_interessantes[rel], 1]
-                        else:
-                            poids_antecedents_ajoutes[rel[0]] = \
-                                [poids_antecedents_ajoutes[rel[0]][0] + relations_interessantes[rel],
-                                 poids_antecedents_ajoutes[rel[0]][0] + 1]
-                    for antecedent in poids_antecedents_ajoutes:
-                        poids_antecedents_ajoutes[antecedent] = poids_antecedents_ajoutes[antecedent][0] / poids_antecedents_ajoutes[antecedent][1]
-                    index = list(poids_antecedents_ajoutes.values()).index(max(poids_antecedents_ajoutes.values()))
-                    coreferences.append([pronom, list(poids_antecedents_ajoutes.keys())[index]])
         i += 1
 
     return coreferences
