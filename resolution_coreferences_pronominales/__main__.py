@@ -2,7 +2,7 @@ import extraction_mot
 import traitements_phrase
 
 if __name__ == '__main__':
-    phrase = '\"Le chien est tombé dans le puits. Il s\'est cassé le museau. Il va ainsi retenir la leçon.\"'
+    phrase = "Le chat est tombé dans le puits. Il est profond. Il s'est blessé la pate."
     infos = traitements_phrase.informations_pronoms(phrase)
     print(phrase)
     print("\nChargement en cours... \n")

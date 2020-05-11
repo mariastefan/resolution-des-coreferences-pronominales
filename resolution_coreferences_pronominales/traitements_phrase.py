@@ -46,12 +46,13 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
                     # Nous enlevons 'nsubj' et 'expl' (pronoms) car nous avons déjà cette info, ainsi que
                     # les ponctuations
                     if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' and enfant_verbe.dep_ != 'punct' \
-                            and enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'iobj':
+                            and enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'iobj' \
+                            and enfant_verbe.dep_ != 'cop':
                         # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi ses enfants
                         if enfant_verbe.dep_ == 'xcomp':
                             infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
                             for enfant_complement in enfant_verbe.children:
-                                if enfant_verbe.dep_ != 'aux':
+                                if enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'cop':
                                     infos[k][2][enfant_verbe.dep_][1][enfant_complement.dep_] = enfant_complement.lemma_
                         elif enfant_verbe not in infos[k][2].keys():
                             infos[k][2][enfant_verbe.dep_] = enfant_verbe.lemma_
@@ -64,13 +65,13 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
                         # les ponctuations
                         if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' \
                                 and enfant_verbe.dep_ != 'punct' and enfant_verbe.dep_ != 'aux' \
-                                and enfant_verbe.dep_ != 'iobj':
+                                and enfant_verbe.dep_ != 'iobj' and enfant_verbe.dep_ != 'cop':
                             # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi
                             # ses enfants
                             if enfant_verbe.dep_ == 'xcomp':
                                 infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
                                 for enfant_complement in enfant_verbe.children:
-                                    if enfant_verbe.dep_ != 'aux':
+                                    if enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'cop':
                                         infos[k][2][enfant_verbe.dep_][1][
                                             enfant_complement.dep_] = enfant_complement.lemma_
                             elif enfant_verbe not in infos[k][2].keys():
@@ -84,13 +85,13 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
                             if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' \
                                     and enfant_verbe.dep_ != 'punct' and enfant_verbe.dep_ != 'aux' \
                                     and enfant_verbe.dep_ != 'iobj' and enfant_verbe.dep_ != 'obj' \
-                                    and enfant_verbe.dep_ != 'obl':
+                                    and enfant_verbe.dep_ != 'obl' and enfant_verbe.dep_ != 'cop':
                                 # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi
                                 # ses enfants
                                 if enfant_verbe.dep_ == 'xcomp':
                                     infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
                                     for enfant_complement in enfant_verbe.children:
-                                        if enfant_verbe.dep_ != 'aux':
+                                        if enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'cop':
                                             infos[k][2][enfant_verbe.dep_][1][
                                                 enfant_complement.dep_] = enfant_complement.lemma_
                                 elif enfant_verbe not in infos[k][2].keys():
