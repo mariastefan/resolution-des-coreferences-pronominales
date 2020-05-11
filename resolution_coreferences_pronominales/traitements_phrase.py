@@ -23,68 +23,50 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
         doc = phrase
 
     infos = []
+    k = 0
     i = 0
-    j = 0
-
-    # Retourne les antécédents d'un pronom dans une phrase
-    def antecedents(doc_tmp, m):
-        antecedents_tmp = []
-        noms_ant = []
-        k = 0
-        for jeton_aux in doc_tmp:
-            k += 1
-            if jeton_aux.pos_ == 'NOUN' or jeton_aux.pos_ == 'PROPN':
-                noms_ant.extend([jeton_aux.lemma_])
-            if m == k:
-                antecedents_tmp.extend(noms_ant)
-                break
-        return antecedents_tmp
-
     for mot in doc:
-        if mot.pos_ == 'PRON':
-            pronom = mot
-            infos.append([])
-            infos[j].append(pronom.lemma_)
-
-            # On ajoute à infos les antécédents du pronom
-            infos[j].append(antecedents(doc, i))
-
-            infos[j].append({})
-            for nb_mots_restant in range(i, len(doc)):
-                mot_2 = doc[nb_mots_restant]
-                # cop : copula : mot dont la fonction est de lier l'attribut au sujet
-                # d'une proposition (Il "est" profond.)
-                if mot_2.pos_ == 'VERB' or mot_2.dep_ == 'cop':
-                    verbe_trouve = False
-                    complement_trouve = False
-                    nb_mots_restant_suite = nb_mots_restant + 1
-                    # Simule une boucle do while
-                    while True:
-                        # if doc[nb_mots_restant_suite].dep_ == 'obj'
-                        if doc[nb_mots_restant_suite].dep_ == 'obj' or doc[nb_mots_restant_suite].dep_ == 'obl':
-                            infos[j][2][doc[nb_mots_restant_suite].dep_] = doc[nb_mots_restant_suite].lemma_
-                            complement_trouve = True
-                        # 'Il va retenir la leçon.' xcomp va donner 'retenir' au lieu de 'aller'
-                        elif doc[nb_mots_restant_suite].dep_ == 'xcomp':
-                            infos[j][2][mot_2.dep_] = mot_2.lemma_
-                            infos[j][2][doc[nb_mots_restant_suite].dep_] = doc[nb_mots_restant_suite].lemma_
-                            if pronom.dep_ == 'nsubj' or 'expl':
-                                infos[j][2]['sens'] = 'sortante'
-                            elif pronom.dep_ == 'iobj':
-                                infos[j][2]['sens'] = 'entrante'
-                            verbe_trouve = True
-                        if nb_mots_restant_suite == len(doc) - 1 or doc[nb_mots_restant_suite].dep_ == 'ROOT':
-                            break
-                        nb_mots_restant_suite += 1
-                    if not verbe_trouve:
-                        infos[j][2][mot_2.dep_] = mot_2.lemma_
-                        if pronom.dep_ == 'nsubj' or 'expl':
-                            infos[j][2]['sens'] = 'sortante'
-                        elif pronom.dep_ == 'iobj':
-                            infos[j][2]['sens'] = 'entrante'
-                    break
-            j += 1
         i += 1
+        if mot.pos_ == 'PRON':
+            infos.append([])
+            pronom = mot
+            verbe = pronom.head
+            infos[k].append(pronom.text)
+            infos[k].append([])
+            infos[k].append({verbe.dep_: verbe.lemma_})
+
+            # Si le pronom est un objet indirect ('iobj') alors la relation est entrante, sinon sortante
+            if pronom.dep_ == 'iobj':
+                infos[k][2]['sens'] = 'entrante'
+            else:
+                infos[k][2]['sens'] = 'sortante'
+
+            for enfant_verbe in verbe.children:
+                # Nous enlevons 'nsubj' et 'expl' (pronoms) car nous avons déjà cette info, ainsi que les ponctuations
+                if enfant_verbe.dep_ != 'nsubj' and enfant_verbe.dep_ != 'expl' \
+                        and enfant_verbe.dep_ != 'punct' and enfant_verbe.dep_ != 'aux' and enfant_verbe.dep_ != 'iobj':
+                    # Si l'enfant du verbe est un autre verbe qui le complète, alors on prend aussi ses enfants
+                    if enfant_verbe.dep_ == 'xcomp':
+                        infos[k][2][enfant_verbe.dep_] = [enfant_verbe.lemma_, {}]
+                        for enfant_complement in enfant_verbe.children:
+                            if enfant_verbe.dep_ != 'aux':
+                                infos[k][2][enfant_verbe.dep_][1][enfant_complement.dep_] = enfant_complement.lemma_
+                    elif enfant_verbe not in infos[k][2].keys():
+                        infos[k][2][enfant_verbe.dep_] = enfant_verbe.lemma_
+                    else:
+                        infos[k][2][enfant_verbe.dep_] = [infos[k][2][enfant_verbe], enfant_verbe]
+
+            # On fait une boucle jusqu'au pronom courant pour prendre tous les antécédents possibles du pronom
+            j = 0
+            for mot_aux in doc:
+                j += 1
+                # Nous prenons les adjectifs aussi car fr_core_news_sm n'est pas parfait
+                if (mot_aux.pos_ == 'NOUN' or mot_aux.pos_ == 'PROPN' or mot_aux.pos_ == 'ADJ') \
+                        and mot_aux.dep_ != 'case':
+                    infos[k][1].append(mot_aux.lemma_)
+                if i == j:
+                    break
+            k += 1
     return infos
 
 
@@ -99,13 +81,25 @@ def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
     for infos_pour_un_pronom in infos_pronoms:
         pronom = infos_pour_un_pronom[0]
         dependances_pronom = []
+
+        # Si le verbe racine a un complément qui est un autre verbe ('xcomp') alors on ignore le verbe racine
         if 'xcomp' in infos_pour_un_pronom[2].keys():
             for key in infos_pour_un_pronom[2].keys():
-                if key != 'sens' and key != 'ROOT':
+                if key != 'xcomp' and isinstance(infos_pour_un_pronom[2][key], list):
+                    for element in infos_pour_un_pronom[2][key]:
+                        dependances_pronom.append(element)
+                elif key == 'xcomp':
+                    dependances_pronom.append(infos_pour_un_pronom[2][key][0])
+                    for key_xcomp in infos_pour_un_pronom[2][key][1]:
+                        dependances_pronom.append(infos_pour_un_pronom[2][key][1][key_xcomp])
+                elif key != 'sens' and key != 'ROOT':
                     dependances_pronom.append(infos_pour_un_pronom[2][key])
         else:
             for key in infos_pour_un_pronom[2].keys():
-                if key != 'sens':
+                if isinstance(infos_pour_un_pronom[2][key], list):
+                    for element in infos_pour_un_pronom[2][key]:
+                        dependances_pronom.append(element)
+                elif key != 'sens':
                     dependances_pronom.append(infos_pour_un_pronom[2][key])
 
         relations = extraction_mot.relations_entre_mots(infos_pour_un_pronom[1] + dependances_pronom, cache)
