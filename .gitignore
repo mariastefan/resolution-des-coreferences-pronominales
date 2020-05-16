@@ -5,3 +5,5 @@ resolution_coreferences_pronominales/.idea/
 resolution_coreferences_pronominales/.vscode/
 
 resolution_coreferences_pronominales/tests/tests-spacy.py
+
+uninstall.sh
