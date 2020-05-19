@@ -1,5 +1,4 @@
 ### Résolution des coréférences pronominales
-# README TEMPORAIRE
 
 #### Installation
 Se placer dans le dossier `resolution-coreferences-pronominales-git` et lancer la commande suivante :\
@@ -8,6 +7,9 @@ Se placer dans le dossier `resolution-coreferences-pronominales-git` et lancer l
 Pour exécuter une démonstration sur une phrase il suffit de se placer dans le dossier `resolution-coreferences-pronominales-git` et lancer la commande suivante :\
 `python3 ./resolution_coreferences_pronominales/__main__.py`
 #### Désinstallation
+Le fichier `uninstall.sh` sera créé après l'exécution de `install.sh`.\
+`uninstall.sh` déinstallera les packages python qui n'étaient pas présents sur l'ordinateur avant l'exécution de `install.sh`.<br/> 
+**Pour désinstaller :**\
 Se placer dans le dossier `resolution-coreferences-pronominales-git` et lancer la commande suivante :\
 `sh ./uninstall.sh`
 
@@ -51,12 +53,21 @@ Il y a 2 fichiers principaux qui contiennent les fonctions suivantes :
             ***Rend*** *infos, une liste de taille 3 composé de :*
          - *infos[0] = le pronom (str)*
          - *infos[1] = [antécédents possibles] (list)*
-         - *infos[2] = {d'autres infos sur le pronom, comme le verbe, le COD...} (dictionary)*
+         - *infos[2] = {d'autres infos sur le pronom, comme le verbe, le COD...} (dictionary). infos[2] peut contenir des dictionnaires, par exemple dans le cas où on a un 'xcomp' : lorsqu'on arrive sur 'xcomp' on crée un nouveau dictionnaire dans lequel on met des informations sur 'xcomp'*<br/>
+        *Exemple de ce que peut rendre la fonction:*\
+        `phrase = "Le chien a mordu l'humain. Il lui a cassé le museau. Il va retenir la leçon."`\
+        `traitements_phrase.informations_pronoms(phrase)`\
+        *Rend :* `[`<br/> 
+        `['Il', ['chien', 'humain'], {'ROOT': 'casser', 'sens': 'sortante'}],`<br/> 
+        `['lui', ['chien', 'humain'], {'ROOT': 'casser', 'sens': 'entrante', 'obj': 'museau'}],`<br/>
+        `['Il', ['chien', 'humain', 'museau'], {'ROOT': 'aller', 'sens': 'sortante', 'xcomp': ['retenir', {'obj': 'leçon'}]}]`<br/>
+        `]`
     - `coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool)`\
-           **Cette fonction est le but final du projet, elle est encore en amélioration**\
+           **Cette fonction est le but final du projet**\
            *Prend une phrase (de type str ou spacy.tokens.doc.Doc) et retourne à quoi correspond chaque pronom*\
            ***Rend*** *une liste de listes, contenant autant de sous-listes qu'il y a de pronoms dans la phrase. Dans chaque sous-liste on retrouve un pronom et le mot auquel il fait référence.*
     - `affichier_antecedents_dans_phrase(phrase: str, cache: bool)`\
+            *Utilise la fonction `coreferences_phrase()` pour :*\
            ***Rend*** *un str contenant la phrase avec les références des pronoms juste à coté des pronoms.*\
            *Ex : "Le chien est tombé dans le puits. Il(chien) s'est cassé le museau."*
 
