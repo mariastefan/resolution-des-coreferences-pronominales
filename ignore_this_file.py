@@ -1,34 +1,35 @@
-import os, re
+import os
+import re
 
-already_installed = os.popen('pip freeze').read()
 requirements = open('requirements.txt', 'r')
 uninstall = open('uninstall.sh', 'w')
-regex = "(.+)(==.+)"
-pack1 = False
-pack2 = False
-pack3 = False
-for req in requirements:
+regex = "([^=\s]+)=|\s.*"
+dependency1 = False
+dependency2 = False
+dependency3 = False
+for one_requirements_line in requirements:
     found = False
-    res_req = re.search(regex, req)
-    for inst in already_installed:
-        res_inst = re.search(regex, req)
-        if res_req.group(1) == res_inst.group(1):
+    requirements_pattern = re.search(regex, one_requirements_line)
+    already_installed = os.popen('pip freeze')
+    for one_already_installed_line in already_installed:
+        installed_pattern = re.search(regex, one_already_installed_line)
+        if requirements_pattern and installed_pattern and requirements_pattern.group(1) == installed_pattern.group(1):
             found = True
             break
-        elif res_inst == 'fr-core-news-sm':
-            pack1 = True
+        elif installed_pattern and installed_pattern.group(1) == 'fr-core-news-sm':
+            dependency1 = True
             break
-        elif res_inst == 'importlib-metadata':
-            pack2 = True
+        elif installed_pattern and installed_pattern.group(1) == 'importlib-metadata':
+            dependency2 = True
             break
-        elif res_inst == 'zipp':
-            pack3 = True
+        elif installed_pattern and installed_pattern.group(1) == 'zipp':
+            dependency3 = True
             break
-    if found == False:
-        uninstall.write("yes | pip3 uninstall " + res_req.group(1) + ";\n")
-if pack1 == False:
+    if requirements_pattern and requirements_pattern.group(1) is not None and not found:
+        uninstall.write("yes | pip3 uninstall " + str(requirements_pattern.group(1)) + ";\n")
+if not dependency1:
     uninstall.write("yes | pip3 uninstall fr-core-news-sm;\n")
-if pack2 == False:
+if not dependency2:
     uninstall.write("yes | pip3 uninstall importlib-metadata;\n")
-if pack3 == False:
+if not dependency3:
     uninstall.write("yes | pip3 uninstall zipp;\n")

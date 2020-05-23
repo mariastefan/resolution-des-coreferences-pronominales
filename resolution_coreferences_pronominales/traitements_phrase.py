@@ -1,6 +1,7 @@
 from statistics import mean
 
 import spacy
+import fr_core_news_sm
 import extraction_mot
 
 
@@ -17,7 +18,7 @@ import extraction_mot
 def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
     # Nous vérifions si phrase est de type spacy.tokens.doc.Doc pour gagner du temps (car spacy.load('fr') est lent)
     if isinstance(phrase, str):
-        nlp = spacy.load('fr')
+        nlp = fr_core_news_sm.load()
         doc = nlp(phrase)
     else:
         doc = phrase
@@ -116,7 +117,7 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
 def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
     # Nous vérifions si phrase est de type spacy.tokens.doc.Doc pour gagner du temps (car spacy.load('fr') est lent)
     if isinstance(phrase, str):
-        nlp = spacy.load('fr')
+        nlp = fr_core_news_sm.load()
         phrase = nlp(phrase)
     infos_pronoms = informations_pronoms(phrase)
     coreferences = []
@@ -194,7 +195,7 @@ def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
 
 
 def affichier_antecedents_dans_phrase(phrase: str, cache: bool):
-    nlp = spacy.load('fr')
+    nlp = fr_core_news_sm.load()
     phrase = nlp(phrase)
     coreferences = coreferences_phrase(phrase, cache)
     phrase_antecedents = ''
