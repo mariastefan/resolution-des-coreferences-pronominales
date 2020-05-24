@@ -2,7 +2,7 @@ from statistics import mean
 
 import spacy
 import fr_core_news_sm
-import extraction_mot
+from resolution_coreferences_pronominales import extraction_mot
 
 
 # Prend une phrase et retourne des informations sur ses pronoms
