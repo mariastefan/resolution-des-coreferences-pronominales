@@ -1,22 +1,15 @@
 stages:
-  - test
+  - mon_test
 
-.test:
-  image: python:3.8
-  stage: test
+job:mon_test:
+  stage: mon_test
+  image: python:3.6
   script:
-  - apt-get update -qy
-  - pip3 install -r requirements.txt
-  - python3 -m spacy download fr
-  - python3 ./resolution_coreferences_pronominales/__main__.py
+    - apt-get update -qy
+    - sh install.sh
+    - python3 ./resolution_coreferences_pronominales/__main__.py
+    - for f in resolution_coreferences_pronominales/tests/*.py; do python "$f"; done
+    - sh uninstall.sh
 
-test_master:
-  extends: .test
-  only:
-    refs:
-      - master
 
-test_manual:
-  extends: .test
-  when: manual
 

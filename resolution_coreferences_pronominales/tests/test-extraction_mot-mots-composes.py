@@ -1,5 +1,8 @@
-import extraction_mot
 import os
+import sys
+sys.path.append(".")
+from resolution_coreferences_pronominales import extraction_mot
+
 
 if __name__ == '__main__':
     mot = 'être vivant'

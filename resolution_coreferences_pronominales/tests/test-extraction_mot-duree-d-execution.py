@@ -1,4 +1,6 @@
-import extraction_mot
+import sys
+sys.path.append(".")
+from resolution_coreferences_pronominales import extraction_mot
 import time
 
 if __name__ == '__main__':

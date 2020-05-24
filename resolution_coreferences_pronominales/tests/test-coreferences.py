@@ -1,4 +1,6 @@
-import traitements_phrase
+import sys
+sys.path.append(".")
+from resolution_coreferences_pronominales import traitements_phrase
 
 if __name__ == '__main__':
     # phrase = "Le chien est tombé dans le puits. Il s'est cassé le museau. Il va ainsi retenir la leçon."
