@@ -7,6 +7,7 @@ regex = "([^=\s]+)=|\s.*"
 dependency1 = False
 dependency2 = False
 dependency3 = False
+dependency4 = False
 for one_requirements_line in requirements:
     found = False
     requirements_pattern = re.search(regex, one_requirements_line)
@@ -25,6 +26,9 @@ for one_requirements_line in requirements:
         elif installed_pattern and installed_pattern.group(1) == 'zipp':
             dependency3 = True
             break
+        elif installed_pattern and installed_pattern.group(1) == 'fr-core-news-md':
+            dependency4 = True
+            break
     if requirements_pattern and requirements_pattern.group(1) is not None and not found:
         uninstall.write("yes | pip3 uninstall " + str(requirements_pattern.group(1)) + ";\n")
 if not dependency1:
@@ -33,3 +37,5 @@ if not dependency2:
     uninstall.write("yes | pip3 uninstall importlib-metadata;\n")
 if not dependency3:
     uninstall.write("yes | pip3 uninstall zipp;\n")
+if not dependency4:
+    uninstall.write("yes | pip3 uninstall fr-core-news-md;\n")
