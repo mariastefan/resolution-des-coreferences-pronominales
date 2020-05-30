@@ -1,4 +1,16 @@
 Le chien est tombé dans le puits. Il a aboyé toute la nuit.
-[Il, [aboyé], [['->', chien, tombé]]]
+[['Il', 'chien']]
 Le chien est tombé dans le puits. Il est profond.
-[Il, [profond], [['->', chien, tombé]]]
+[['Il', 'puits']]
+L'humain a mis un coup de poing au chien. Il lui a cassé le museau.
+[['Il', 'humain'], ['lui', 'chien']]
+Le chien est tombé dans le puits. Il va ainsi retenir la leçon.
+[['Il', 'chien']]
+Le chien est tombé dans le puits. Il s'est cassé le museau. Il va ainsi retenir la leçon.
+[['Il', 'chien'], ["s'", 'chien'], ['Il', 'chien']]
+Jean est entré. Il s'est assis toute de suite.
+[['Il', 'Jean'], ["s'", 'Jean']]
+Adrien voudrait plus de gateau. Il est culotté celui-là.
+[['Il', 'adrien'], ['celui', 'adrien']]
+Hugo s'est acheté une bicyclette. Ce moyen de transport est très écologique.
+[["s'", 'Hugo']]
