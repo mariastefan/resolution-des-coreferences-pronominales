@@ -1,11 +1,30 @@
 import pandas as pd
 from datetime import datetime
+import sys
+sys.path.append(".")
 from resolution_coreferences_pronominales import extraction_mot
 from resolution_coreferences_pronominales import traitements_phrase
 import os
 import time
 
+# Ce programme remplit le fichier data/historique_duree_execution.csv
+# Le but du programme est de sauvegarder le temps d'execution des fonctions du
+# projet afin de détecter les ralentissements (modifications, ...)
+# Ce programme execute nombre_repetitions_global fois les fonctions principales du projet,
+# contenues dans extraction_mot.py et traitements_phrase.py.
+# Chaque fonction est testée nombre_repetitions_fonctions fois. La moyenne du temps d'execution est gardée pour chacune.
+# On ajoute aussi la difference, en pourcentage, entre chaque durée d'exécution et la moyenne des
+# durées précédentes (difference_1, difference_2, ...)
+# voir data/historique_duree_execution.csv pour plus d'informations
+
 if __name__ == '__main__':
+    # Variables pour l'execution des fonctions
+    mot = 'manger'
+    liste_mots = ['chien', 'canaille', 'caniche', 'aboyer', 'être vivant', 'museau']
+    phrase = 'Le chien est tombé dans le puits. Il s\'est cassé le museau. Il va ainsi retenir la leçon.'
+    nombre_repetitions_global = 1  # Attention ! nombre de boucles * 2. Ne pas mettre un nombre trop grand !
+    nombre_repetitions_fonctions = 3  # ATTENTION ! CHAQUE fonction est appelée AUTANT de fois que ce nombre
+
     # Chemin du fichier où on sauvegarde les durées d'exécution
     chemin_fichier = os.path.dirname(os.path.dirname(__file__)) + "/data/historique_duree_execution.csv"
 
@@ -32,14 +51,6 @@ if __name__ == '__main__':
     else:
         historique_duree_execution = pd.read_csv(chemin_fichier)
 
-    # Variables pour l'execution des fonctions
-    mot = 'manger'
-    liste_mots = ['chien', 'canaille', 'caniche', 'aboyer', 'être vivant', 'museau']
-    phrase = 'Le chien est tombé dans le puits. Il s\'est cassé le museau. Il va ainsi retenir la leçon.'
-    nombre_repetitions_global = 1  # Attention ! nombre de boucles * 2. Ne pas mettre un nombre trop grand !
-    nombre_repetitions_fonctions = 3  # ATTENTION ! CHAQUE fonction est appelée AUTANT de fois que ce nombre
-
-
     for i in range(nombre_repetitions_global * 2):
         cache = ''
         pourcentage_1 = ''
@@ -59,7 +70,6 @@ if __name__ == '__main__':
         temps_execution_1 = 0
         for j in range(nombre_repetitions_fonctions):
             start = time.time()
-            time.sleep(1)
             extraction_mot.extraction_html(mot, 'all')
             temps_execution_1 = (time.time() - start) + temps_execution_1
         temps_execution_1 = temps_execution_1 / nombre_repetitions_fonctions
@@ -74,8 +84,11 @@ if __name__ == '__main__':
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if (not ancienne_duree.empty) and ancienne_duree.shape[0] > 1:
+            moyenne_duree_precedents = historique_duree_execution[historique_duree_execution['cache'] == cache][
+                'extraction_mot.extraction_html()'].mean()
+
             pourcentage_1 = -1 * (
-                    100 - ((100 * temps_execution_1) / ancienne_duree['extraction_mot.extraction_html()'][0]))
+                    100 - ((100 * temps_execution_1) / moyenne_duree_precedents))
             if pourcentage_1 > 0:
                 pourcentage_1 = '+' + str(round(pourcentage_1, 2)) + '%'
             else:
@@ -99,8 +112,11 @@ if __name__ == '__main__':
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if (not ancienne_duree.empty) and ancienne_duree.shape[0] > 1:
+            moyenne_duree_precedents = historique_duree_execution[historique_duree_execution['cache'] == cache][
+                'extraction_mot.relations_mot()'].mean()
+
             pourcentage_2 = -1 * (
-                    100 - ((100 * temps_execution_2) / ancienne_duree['extraction_mot.relations_mot()'][0]))
+                    100 - ((100 * temps_execution_2) / moyenne_duree_precedents))
             if pourcentage_2 > 0:
                 pourcentage_2 = '+' + str(round(pourcentage_2, 2)) + '%'
             else:
@@ -124,8 +140,11 @@ if __name__ == '__main__':
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if (not ancienne_duree.empty) and ancienne_duree.shape[0] > 1:
-            pourcentage_3 = -1 * (100 - (
-                    (100 * temps_execution_3) / ancienne_duree['extraction_mot.relations_entre_mots()'][0]))
+            moyenne_duree_precedents = historique_duree_execution[historique_duree_execution['cache'] == cache][
+                'extraction_mot.relations_entre_mots()'].mean()
+
+            pourcentage_3 = -1 * (
+                    100 - ((100 * temps_execution_3) / moyenne_duree_precedents))
             if pourcentage_3 > 0:
                 pourcentage_3 = '+' + str(round(pourcentage_3, 2)) + '%'
             else:
@@ -149,8 +168,11 @@ if __name__ == '__main__':
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if (not ancienne_duree.empty) and ancienne_duree.shape[0] > 1:
-            pourcentage_4 = -1 * (100 - (
-                    (100 * temps_execution_4) / ancienne_duree['traitements_phrase.informations_pronoms()'][0]))
+            moyenne_duree_precedents = historique_duree_execution[historique_duree_execution['cache'] == cache][
+                'traitements_phrase.informations_pronoms()'].mean()
+
+            pourcentage_4 = -1 * (
+                    100 - ((100 * temps_execution_4) / moyenne_duree_precedents))
             if pourcentage_4 > 0:
                 pourcentage_4 = '+' + str(round(pourcentage_4, 2)) + '%'
             else:
@@ -174,8 +196,11 @@ if __name__ == '__main__':
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if (not ancienne_duree.empty) and ancienne_duree.shape[0] > 1:
-            pourcentage_5 = -1 * (100 - (
-                    (100 * temps_execution_5) / ancienne_duree['traitements_phrase.coreferences_phrase()'][0]))
+            moyenne_duree_precedents = historique_duree_execution[historique_duree_execution['cache'] == cache][
+                'traitements_phrase.coreferences_phrase()'].mean()
+
+            pourcentage_5 = -1 * (
+                    100 - ((100 * temps_execution_5) / moyenne_duree_precedents))
             if pourcentage_5 > 0:
                 pourcentage_5 = '+' + str(round(pourcentage_5, 2)) + '%'
             else:
