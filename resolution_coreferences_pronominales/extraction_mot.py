@@ -1,4 +1,6 @@
 import re
+from time import sleep
+
 from bs4 import BeautifulSoup
 import requests
 import os
@@ -28,16 +30,39 @@ def conversion_mot(rq_word: str):
 # Prend rq_word (mot recherché) et retourne le code html correspondant depuis http://www.jeuxdemots.org/rezo-dump
 # Il n'y a pas de raison d'utiliser cette fonction seule
 def extraction_html(rq_word: str, type_relation: str):
+    adresse = 'http://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel='
+    # adresse = 'http://0.0.0.0:3000/rezo-dump.php?gotermsubmit=Chercher&gotermrel='
     rq_word_converti = conversion_mot(rq_word)
-    if type_relation == 'all':
-        html = requests.get(
-            'http://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=' + rq_word_converti + '&rel=')
-    else:
-        html = requests.get(
-            'http://www.jeuxdemots.org/rezo-dump.php?gotermsubmit=Chercher&gotermrel=' + rq_word_converti + '&rel=' +
-            type_relation)
-    encoding = html.encoding if 'charset' in html.headers.get('content-type', '').lower() else None
+    nombre_essais = 3
+    while True:
+        try:
+            if type_relation == 'all':
+                html = requests.get(adresse + rq_word_converti + '&rel=')
+            else:
+                html = requests.get(adresse + rq_word_converti + '&rel=' + type_relation)
+            break
+
+        except Exception as erreur:
+            if not erreur.args:
+                print('\033[36m' + '\nIl y a eu une erreur de connexion a jdm pour le mot ' +
+                      '\033[4m' + rq_word + '\033[0m' + '\033[36m' + '. On réessaie.' + '\033[0m')
+            else:
+                print(str(erreur.args) + '\033[36m' + '\nIl y a eu une erreur de connexion a jdm pour le mot ' +
+                      '\033[4m' + rq_word + '\033[0m' + '\033[36m' + '. On réessaie.' + '\033[0m')
+            if nombre_essais == 0:
+                sys.exit('Il y a eu trop de tentatives de connexion à jdm pour le mot ' + rq_word + '. Abandon.')
+            else:
+                sleep(1)
+                pass
+        nombre_essais -= 1
+
+    # encoding = html.encoding if 'charset' in html.headers.get('content-type', '').lower() else None
     soup = BeautifulSoup(html.content, 'html.parser', from_encoding='iso-8859-1')
+    div_warning_jdm = soup.find_all("div", {"class": "jdm-warning"})
+    for div in div_warning_jdm:
+        if '\'' + rq_word + '\'' + ' n\'existe pas' in div.text:
+            print('Le mot \"' + rq_word + ' n\'existe pas dans jeuxdemots.org')
+            return None
     texte_brut = soup.find_all('code')
     return texte_brut
 
@@ -52,14 +77,12 @@ def extraction_html(rq_word: str, type_relation: str):
 def relations_mot(mot: str, type_relation: str, cache: bool):
     def sans_cache(mot_tmp, type_relation_tmp):
         texte_brut = extraction_html(mot_tmp, type_relation_tmp)
-        try:
-            lignes_noeuds_et_relations = re.findall('[re];[0-9]*;.*', str(texte_brut))
-            if not lignes_noeuds_et_relations:
-                print('Le mot \"' + mot + ' n\'existe pas dans jeuxdemots.org')
-                return None
-        except ValueError as err:
-            print(err)
-            sys.exit()
+        if texte_brut is None:
+            return None
+        lignes_noeuds_et_relations = re.findall('[re];[0-9]*;.*', str(texte_brut))
+        if not lignes_noeuds_et_relations:
+            print('Aucune relation pour le mot \'' + mot + '\'.')
+            return None
         tab_eids = {}
         tab_rids = {}
         eid_mot = re.search('e;([0-9]*);.*', lignes_noeuds_et_relations[0]).group(1)
