@@ -3,8 +3,8 @@ sys.path.append(".")
 from resolution_coreferences_pronominales import extraction_mot
 
 if __name__ == '__main__':
-    # Paramètres à choisir :
-    mot = 'adsqmour'
-    relations_mot = extraction_mot.relations_mot(mot, 'all', False)
-    if relations_mot is not None:
-        print("Il y a " + str(len(relations_mot)) + " entrées dans relations_mot")
+    mot = 'bfjhjnfkfjiez'
+    extraction_html = extraction_mot.extraction_html(mot, 'all')
+    if extraction_html is not None:
+        sys.exit('Problème de gestion de mots inexistants sur jdm ( dans extraction_mot.extraction_html() )\n'
+                 'Le mot \'' + mot + '\' n\'est pas censé exister sur jdm mais la fonction ne retourne pas None !')
