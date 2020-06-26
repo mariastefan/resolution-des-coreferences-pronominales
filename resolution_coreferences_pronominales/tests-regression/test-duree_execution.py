@@ -3,8 +3,9 @@ from datetime import datetime
 import sys
 
 sys.path.append(".")
-from resolution_coreferences_pronominales import extraction_mot
-from resolution_coreferences_pronominales import traitements_phrase
+from resolution_coreferences_pronominales.coreferences import analyses_texte
+from resolution_coreferences_pronominales.coreferences import mot
+from resolution_coreferences_pronominales.coreferences.relations_entre_mots import relations_entre_mots
 import os
 import time
 
@@ -18,7 +19,7 @@ import time
 # Le but du programme est de sauvegarder le temps d'execution des fonctions du
 # projet afin de détecter les ralentissements (modifications, ...)
 # Ce programme execute nombre_repetitions_global fois les fonctions principales du projet,
-# contenues dans extraction_mot.py et traitements_phrase.py.
+# contenues dans mot.py et analyses_texte.py.
 # Chaque fonction est testée nombre_repetitions_fonctions fois. La mediane du temps d'execution est gardée pour chacune.
 # On ajoute aussi la difference, en pourcentage, entre chaque durée d'exécution et la mediane des
 # durées précédentes (difference_1, difference_2, ...)
@@ -26,7 +27,7 @@ import time
 
 if __name__ == '__main__':
     # Variables pour l'execution des fonctions
-    mot = 'manger'
+    le_mot = 'manger'
     liste_mots = ['chien', 'canaille', 'caniche', 'aboyer', 'être vivant', 'museau']
     phrase = 'Le chien est tombé dans le puits. Il s\'est cassé le museau. Il va ainsi retenir la leçon.'
 
@@ -48,18 +49,18 @@ if __name__ == '__main__':
                  'estimation du temps d\'execution c\'est mieux de les executer plus d\'une fois.)\n')
 
     # Chemin du fichier où on sauvegarde les durées d'exécution
-    chemin_fichier = os.path.dirname(os.path.dirname(__file__)) + "/data/historique_duree_execution.csv"
+    chemin_fichier = "historique_duree_execution.csv"
 
     # Initialisation DataFrame historique_duree_execution
     historique_duree_execution = ''
     if not os.path.isfile(chemin_fichier):
         historique_duree_execution = pd.DataFrame({'cache': [],
                                                    'nb_reps_fcts': [],
-                                                   'extraction_mot.extraction_html()': [],
+                                                   'mot.extraction_html()': [],
                                                    'difference_1': [],
-                                                   'extraction_mot.relations_mot()': [],
+                                                   'mot.relations_mot()': [],
                                                    'difference_2': [],
-                                                   'extraction_mot.relations_entre_mots()': [],
+                                                   'relations_entre_mots()': [],
                                                    'difference_3': [],
                                                    'traitements_phrase.informations_pronoms()': [],
                                                    'difference_4': [],
@@ -104,27 +105,27 @@ if __name__ == '__main__':
             cache = True
 
         # Calcul temps d'execution des differentes fonctions
-        # print('Debut calcul durée d\'execution extraction_mot.extraction_html')
+        # print('Debut calcul durée d\'execution mot.extraction_html')
         temps_execution_1 = 0
         for j in range(nombre_repetitions_fonctions):
             start = time.time()
-            extraction_mot.extraction_html(mot, 'all')
+            mot.extraction_html(le_mot, 'all')
             temps_execution_1 = (time.time() - start) + temps_execution_1
         temps_execution_1 = temps_execution_1 / nombre_repetitions_fonctions
-        print('Fin 1 : extraction_mot.extraction_html')
+        print('Fin 1 : mot.extraction_html')
 
         # On vérifie que la durée d'execution n'excède pas la plus grande présente dans le csv
         if not historique_duree_execution_old.empty:
             if temps_execution_1 > historique_duree_execution_old[
                 historique_duree_execution_old['cache'] == cache
-            ]['extraction_mot.extraction_html()'].max():
-                print('\033[93m' + 'Attention ! Vérifiez extraction_mot.extraction_html() ! '
+            ]['mot.extraction_html()'].max():
+                print('\033[93m' + 'Attention ! Vérifiez mot.extraction_html() ! '
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if not ancienne_duree.empty:
             # On calcule la mediane des précedentes durées d'exécution
             mediane_duree_precedents = historique_duree_execution_old[historique_duree_execution_old['cache'] == cache][
-                'extraction_mot.extraction_html()'].median()
+                'mot.extraction_html()'].median()
 
             # pourcentage_1 correspond à la différence en pourcentage entre le nouveau temps d'exécution de la fonction
             # 1 et la mediane des anciens temps d'exécution dans le fichier de la fonction 1
@@ -136,26 +137,26 @@ if __name__ == '__main__':
             else:
                 pourcentage_1 = str(round(pourcentage_1, 2)) + '%'
 
-        # print('Debut calcul durée d\'execution extraction_mot.relations_mot')
+        # print('Debut calcul durée d\'execution mot.relations_mot')
         temps_execution_2 = 0
         for j in range(nombre_repetitions_fonctions):
             start = time.time()
-            extraction_mot.relations_mot(mot, 'all', cache)
+            mot.relations_mot(le_mot, 'all', cache)
             temps_execution_2 = (time.time() - start) + temps_execution_2
         temps_execution_2 = temps_execution_2 / nombre_repetitions_fonctions
-        print('Fin 2 : extraction_mot.relations_mot')
+        print('Fin 2 : mot.relations_mot')
 
         # On vérifie que la durée d'execution n'excède pas la plus grande présente dans le csv
         if not historique_duree_execution_old.empty:
             if temps_execution_2 > historique_duree_execution_old[
                 historique_duree_execution_old['cache'] == cache
-            ]['extraction_mot.relations_mot()'].max():
-                print('\033[93m' + 'Attention ! Vérifiez extraction_mot.relations_mot() ! '
+            ]['mot.relations_mot()'].max():
+                print('\033[93m' + 'Attention ! Vérifiez mot.relations_mot() ! '
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if not ancienne_duree.empty:
             mediane_duree_precedents = historique_duree_execution_old[historique_duree_execution_old['cache'] == cache][
-                'extraction_mot.relations_mot()'].median()
+                'mot.relations_mot()'].median()
 
             pourcentage_2 = -1 * (
                     100 - ((100 * temps_execution_2) / mediane_duree_precedents))
@@ -165,26 +166,26 @@ if __name__ == '__main__':
             else:
                 pourcentage_2 = str(round(pourcentage_2, 2)) + '%'
 
-        # print('Debut calcul durée d\'execution extraction_mot.relations_entre_mots')
+        # print('Debut calcul durée d\'execution relations_entre_mots')
         temps_execution_3 = 0
         for j in range(nombre_repetitions_fonctions):
             start = time.time()
-            extraction_mot.relations_entre_mots(liste_mots, cache)
+            relations_entre_mots(liste_mots, cache)
             temps_execution_3 = (time.time() - start) + temps_execution_3
         temps_execution_3 = temps_execution_3 / nombre_repetitions_fonctions
-        print('Fin 3 : extraction_mot.relations_entre_mots')
+        print('Fin 3 : relations_entre_mots')
 
         # On verifie que la durée d'execution n'excède pas la plus grande présente dans le csv
         if not historique_duree_execution_old.empty:
             if temps_execution_3 > historique_duree_execution_old[
                 historique_duree_execution_old['cache'] == cache
-            ]['extraction_mot.relations_entre_mots()'].max():
-                print('\033[93m' + 'Attention ! Vérifiez extraction_mot.relations_entre_mots() ! '
+            ]['relations_entre_mots()'].max():
+                print('\033[93m' + 'Attention ! Vérifiez relations_entre_mots() ! '
                                    'Sa durée d\'exécution parait anormale' + '\033[0m')
 
         if not ancienne_duree.empty:
             mediane_duree_precedents = historique_duree_execution_old[historique_duree_execution_old['cache'] == cache][
-                'extraction_mot.relations_entre_mots()'].median()
+                'relations_entre_mots()'].median()
 
             pourcentage_3 = -1 * (
                     100 - ((100 * temps_execution_3) / mediane_duree_precedents))
@@ -197,7 +198,7 @@ if __name__ == '__main__':
         temps_execution_4 = 0
         for j in range(nombre_repetitions_fonctions):
             start = time.time()
-            traitements_phrase.informations_pronoms(phrase)
+            analyses_texte.informations_pronoms(phrase)
             temps_execution_4 = (time.time() - start) + temps_execution_4
         temps_execution_4 = temps_execution_4 / nombre_repetitions_fonctions
         print('Fin 4 : traitements_phrase.informations_pronoms')
@@ -226,7 +227,7 @@ if __name__ == '__main__':
         temps_execution_5 = 0
         for j in range(nombre_repetitions_fonctions):
             start = time.time()
-            traitements_phrase.coreferences_phrase(phrase, cache)
+            analyses_texte.coreferences_phrase(phrase, cache)
             temps_execution_5 = (time.time() - start) + temps_execution_5
         temps_execution_5 = temps_execution_5 / nombre_repetitions_fonctions
         print('Fin 5 : traitements_phrase.coreferences_phrase')
@@ -272,16 +273,16 @@ if __name__ == '__main__':
                     pourcentage_5,
                     date,
                     heure,
-                    mot,
+                    le_mot,
                     liste_mots,
                     phrase
                 ]], columns=list(['cache',
                                   'nb_reps_fcts',
-                                  'extraction_mot.extraction_html()',
+                                  'mot.extraction_html()',
                                   'difference_1',
-                                  'extraction_mot.relations_mot()',
+                                  'mot.relations_mot()',
                                   'difference_2',
-                                  'extraction_mot.relations_entre_mots()',
+                                  'relations_entre_mots()',
                                   'difference_3',
                                   'traitements_phrase.informations_pronoms()',
                                   'difference_4',
