@@ -3,7 +3,7 @@ import sys
 import os
 
 sys.path.append(".")
-from resolution_coreferences_pronominales import traitements_phrase
+from resolution_coreferences_pronominales.coreferences import analyses_texte
 
 if __name__ == '__main__':
     phrases_test = open(os.path.dirname(os.path.dirname(__file__)) + "/data/phrases_test", "r")
@@ -16,7 +16,7 @@ if __name__ == '__main__':
             phrase = ligne
         else:
             corefs_justes = ast.literal_eval(ligne)
-            corefs_a_tester = traitements_phrase.coreferences_phrase(phrase, True)
+            corefs_a_tester = analyses_texte.coreferences_phrase(phrase, True)
             if corefs_justes == corefs_a_tester:
                 print(phrase.rstrip() + " : 100%")  # pour enlever le \n
                 correct += len(corefs_justes)
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     phrases_test.close()
     precision = (correct - incorrect) / correct
     print("\n" + str(precision * 100) + '% des coréférences sont justes.')
-    historique_precision = open(os.path.dirname(os.path.dirname(__file__)) + "/data/historique_precision.txt", "r+")
+    historique_precision = open("historique_precision.txt", "r+")
     last_line = historique_precision.readlines()
     if last_line:
         last_line = last_line[-1]
@@ -53,4 +53,6 @@ if __name__ == '__main__':
             historique_precision.write("\n" + str(precision))
         else:
             print("La précision n'a pas changé.")
+    else:
+        historique_precision.write("\n" + str(precision))
     historique_precision.close()

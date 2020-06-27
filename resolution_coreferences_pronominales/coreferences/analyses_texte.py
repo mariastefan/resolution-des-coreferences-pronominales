@@ -2,7 +2,7 @@ from statistics import mean
 
 import spacy
 import fr_core_news_sm
-from resolution_coreferences_pronominales import extraction_mot
+from resolution_coreferences_pronominales.coreferences import relations_entre_mots
 
 
 # Prend une phrase et retourne des informations sur ses pronoms
@@ -152,7 +152,7 @@ def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
         else:
             # On cherche sur jdm toutes les relations possibles entre les antécédents potentiels du
             # pronom (infos_pour_un_pronom[1]) et les mots qui ont un lien avec le pronom (dependances_pronom)
-            relations = extraction_mot.relations_entre_mots(infos_pour_un_pronom[1] + dependances_pronom, cache)
+            relations = relations_entre_mots.relations_entre_mots(infos_pour_un_pronom[1] + dependances_pronom, cache)
 
             relations_interessantes = {}
 
