@@ -3,7 +3,33 @@ from statistics import mean
 import spacy
 import fr_core_news_sm
 from resolution_coreferences_pronominales.coreferences import relations_entre_mots
+from spacy.matcher import Matcher
 
+
+def nlp_loader():
+    nlp = fr_core_news_sm.load()
+    matcher = Matcher(nlp.vocab)
+    matcher.add('HYPHENS', None, [{'IS_ALPHA': True}, {'ORTH': '-', 'OP': '+'}, {'IS_ALPHA': True}])
+    liste = ['intelligence artificielle']
+    for e in liste:
+        zzz = []
+        for i in e.split(" "):
+            zzz.append({'ORTH': i})
+        matcher.add(e, None, zzz)
+
+    def quote_merger(doc):
+        # this will be called on the Doc object in the pipeline
+        matched_spans = []
+        matches = matcher(doc)
+        for match_id, start, end in matches:
+            span = doc[start:end]
+            matched_spans.append(span)
+        for span in matched_spans:  # merge into one token after collecting all matches
+            span.merge()
+        return doc
+
+    nlp.add_pipe(quote_merger, first=True)  # add it right after the tokenizer
+    return nlp
 
 # Prend une phrase et retourne des informations sur ses pronoms
 # Tous les mots sont lemmatisés
@@ -18,7 +44,7 @@ from resolution_coreferences_pronominales.coreferences import relations_entre_mo
 def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
     # Nous vérifions si phrase est de type spacy.tokens.doc.Doc pour gagner du temps (car spacy.load('fr') est lent)
     if isinstance(phrase, str):
-        nlp = fr_core_news_sm.load()
+        nlp = nlp_loader()
         doc = nlp(phrase)
     else:
         doc = phrase
@@ -117,7 +143,7 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
 def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
     # Nous vérifions si phrase est de type spacy.tokens.doc.Doc pour gagner du temps (car spacy.load('fr') est lent)
     if isinstance(phrase, str):
-        nlp = fr_core_news_sm.load()
+        nlp = nlp_loader()
         phrase = nlp(phrase)
     infos_pronoms = informations_pronoms(phrase)
     coreferences = []
@@ -195,7 +221,7 @@ def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
 
 
 def affichier_antecedents_dans_phrase(phrase: str, cache: bool):
-    nlp = fr_core_news_sm.load()
+    nlp = nlp_loader()
     phrase = nlp(phrase)
     coreferences = coreferences_phrase(phrase, cache)
     phrase_antecedents = ''
