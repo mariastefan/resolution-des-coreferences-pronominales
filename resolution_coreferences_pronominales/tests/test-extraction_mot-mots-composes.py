@@ -5,6 +5,8 @@ sys.path.append(".")
 from resolution_coreferences_pronominales.coreferences import mot
 
 if __name__ == '__main__':
+    filename = os.path.basename(__file__)
+    print('Start : ' + filename)
     le_mot = 'être vivant'
     mot.relations_mot(le_mot, 'all', True)
     if ' ' in le_mot:
@@ -14,4 +16,5 @@ if __name__ == '__main__':
     if os.path.isfile(chemin_fichier):
         print('Le fichier\n' + chemin_fichier + '\na bien été créé (ou existait déjà)')
     else:
-        print('Erreur création fichier ' + chemin_fichier)
+        print(filename + ' : Erreur création fichier ' + chemin_fichier)
+    print('Completed : ' + filename)

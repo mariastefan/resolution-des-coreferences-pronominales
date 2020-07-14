@@ -1,0 +1,58 @@
+{
+  "intelligence artificielle": {
+    "lemma" : "intelligence artificielle",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Fem|Number=Sing"
+  },
+  "intelligences artificielles": {
+    "lemma" : "intelligence artificielle",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Fem|Number=Plur"
+  },
+  "bande dessinée" : {
+    "lemma" : "bande dessinée",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Fem|Number=Sing"
+  },
+  "bandes dessinées" : {
+    "lemma" : "bande dessinée",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Fem|Number=Plur"
+  },
+  "compte rendu" : {
+    "lemma" : "compte rendu",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc|Number=Sing"
+  },
+  "comptes rendus" : {
+    "lemma" : "compte rendu",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc|Number=Plur"
+  },
+  "faux sens" : {
+    "lemma" : "faux sens",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc"
+  },
+  "hôtel de ville" :  {
+    "lemma" : "hôtel de ville",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc|Number=Sing"
+  },
+  "hôtels de ville" :  {
+    "lemma" : "hôtel de ville",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc|Number=Plur"
+  },
+  "coup de poing" : {
+    "lemma" : "coup de poing",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc|Number=Sing"
+  },
+  "coups de poing" : {
+    "lemma" : "coup de poing",
+    "pos" : "NOUN",
+    "tag" : "NOUN__Gender=Masc|Number=Plur"
+  }
+
+}

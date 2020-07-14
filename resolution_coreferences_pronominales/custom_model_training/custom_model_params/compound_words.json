@@ -1,0 +1,57 @@
+{
+  "intelligence artificielle": {
+    "lemma" : "intelligence artificielle",
+    "pos" : "NOUN"
+  },
+  "intelligences artificielles": {
+    "lemma" : "intelligence artificielle",
+    "pos" : "NOUN"
+  },
+  "bande dessinée" : {
+    "lemma" : "bande dessinée",
+    "pos" : "NOUN"
+  },
+  "bandes dessinées" : {
+    "lemma" : "bande dessinée",
+    "pos" : "NOUN"
+  },
+  "compte rendu" : {
+    "lemma" : "compte rendu",
+    "pos" : "NOUN"
+  },
+  "comptes rendus" : {
+    "lemma" : "compte rendu",
+    "pos" : "NOUN"
+  },
+  "faux sens" : {
+    "lemma" : "faux sens",
+    "pos" : "NOUN"
+  },
+  "hôtel de ville" :  {
+    "lemma" : "hôtel de ville",
+    "pos" : "NOUN"
+  },
+  "hôtels de ville" :  {
+    "lemma" : "hôtel de ville",
+    "pos" : "NOUN"
+  },
+  "coup de poing" : {
+    "lemma" : "coup de poing",
+    "pos" : "NOUN"
+  },
+  "coups de poing" : {
+    "lemma" : "coup de poing",
+    "pos" : "NOUN"
+  },
+  "ce qui" : {
+    "lemma" : "ce qui",
+    "pos" : "PRON",
+    "type_pro" : "relatif"
+  },
+  "ceux qui" : {
+    "lemma" : "ce qui",
+    "pos" : "PRON",
+    "type_pro" : "relatif"
+  }
+
+}

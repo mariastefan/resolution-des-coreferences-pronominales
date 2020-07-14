@@ -1,0 +1,2 @@
+python3 ./resolution_coreferences_pronominales/__main__.py;
+for f in resolution_coreferences_pronominales/tests/*.py; do if [ $f != resolution_coreferences_pronominales/tests/test-duree_execution.py ] && [ $f != resolution_coreferences_pronominales/tests/test-spacy.py ]; then python3 "$f"; fi; done

@@ -24,6 +24,3 @@ if __name__ == '__main__':
         (time1 / nb_boucle)) + " secondes --- par boucle en moyenne")
     print("temps total --- " + str((time.time() - start_time_total)) + " secondes --- pour " + str(
         nb_boucle) + " boucles")
-
-    # Si vous voulez vider le cache :
-    # extraction_mot.vider_cache()
