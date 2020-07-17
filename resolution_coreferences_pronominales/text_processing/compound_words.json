@@ -1,0 +1,57 @@
+{
+  "intelligence artificielle": {
+    "LEMMA" : "intelligence artificielle",
+    "POS" : "Nom"
+  },
+  "intelligences artificielles": {
+    "LEMMA" : "intelligence artificielle",
+    "POS" : "Nom"
+  },
+  "bande dessinée" : {
+    "LEMMA" : "bande dessinée",
+    "POS" : "Nom"
+  },
+  "bandes dessinées" : {
+    "LEMMA" : "bande dessinée",
+    "POS" : "Nom"
+  },
+  "compte rendu" : {
+    "LEMMA" : "compte rendu",
+    "POS" : "Nom"
+  },
+  "comptes rendus" : {
+    "LEMMA" : "compte rendu",
+    "POS" : "Nom"
+  },
+  "faux sens" : {
+    "LEMMA" : "faux sens",
+    "POS" : "Nom"
+  },
+  "hôtel de ville" :  {
+    "LEMMA" : "hôtel de ville",
+    "POS" : "Nom"
+  },
+  "hôtels de ville" :  {
+    "LEMMA" : "hôtel de ville",
+    "POS" : "Nom"
+  },
+  "coup de poing" : {
+    "LEMMA" : "coup de poing",
+    "POS" : "Nom"
+  },
+  "coups de poing" : {
+    "LEMMA" : "coup de poing",
+    "POS" : "Nom"
+  },
+  "ce qui" : {
+    "LEMMA" : "ce qui",
+    "POS" : "Pro",
+    "TYPE_PRO" : "Rel"
+  },
+  "ceux qui" : {
+    "LEMMA" : "ce qui",
+    "POS" : "Pro",
+    "TYPE_PRO" : "Rel"
+  }
+
+}

@@ -9,14 +9,19 @@ json_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..")) + \
             '/custom_model_training/custom_model_params/compound_words.json'
 
 
-def nlp_loader():
+def nlp_loader(only_tokenizer: bool = False):
     """
     Temporary fonction allowing to load the nlp with the custom tokenizer.
     This will later become a fonction creating a new model and scripts will no longer be loading the model with
     this fonction but directly from the new customized model
     :return: nlp
     """
-    nlp = fr_core_news_sm.load()
+    global nlp
+    if only_tokenizer:
+        nlp = fr_core_news_sm.load(disable=["tagger", "parser", "ner"])
+        # nlp = fr_core_news_sm.load(parse=False, tag=False, entity=False)
+    else:
+        nlp = fr_core_news_sm.load()
 
     class CompoundWordsMerger:
         def __init__(self, words_path):

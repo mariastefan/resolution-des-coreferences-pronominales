@@ -6,6 +6,7 @@ json_path = 'compound_words.json'
 
 def tokenizer(text: str):
     """
+    First step of the text processing pipeline.
     Compound words can be found in compound_words.json. The tokenizer merges those words before returning the result.
     :param text (str)
     :return: tokenized text (list)

@@ -1,0 +1,10 @@
+{
+  "sombre" : [
+    {
+      "Adj" : {"LEMMA" :  "sombre"}
+    },
+    {
+      "Ver" : {"LEMMA" :  "sombrer"}
+    }
+  ]
+}
