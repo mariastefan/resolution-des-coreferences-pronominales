@@ -1,9 +1,10 @@
 from statistics import mean
-
 import spacy
-import fr_core_news_sm
 from resolution_coreferences_pronominales.coreferences import relations_entre_mots
-
+from spacy.tokens import Doc
+import sys
+sys.path.append(".")
+from resolution_coreferences_pronominales.custom_model_training import custom_tokenizer
 
 # Prend une phrase et retourne des informations sur ses pronoms
 # Tous les mots sont lemmatisés
@@ -18,7 +19,7 @@ from resolution_coreferences_pronominales.coreferences import relations_entre_mo
 def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
     # Nous vérifions si phrase est de type spacy.tokens.doc.Doc pour gagner du temps (car spacy.load('fr') est lent)
     if isinstance(phrase, str):
-        nlp = fr_core_news_sm.load()
+        nlp = custom_tokenizer.nlp_loader()
         doc = nlp(phrase)
     else:
         doc = phrase
@@ -117,7 +118,7 @@ def informations_pronoms(phrase: str or spacy.tokens.doc.Doc):
 def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
     # Nous vérifions si phrase est de type spacy.tokens.doc.Doc pour gagner du temps (car spacy.load('fr') est lent)
     if isinstance(phrase, str):
-        nlp = fr_core_news_sm.load()
+        nlp = custom_tokenizer.nlp_loader()
         phrase = nlp(phrase)
     infos_pronoms = informations_pronoms(phrase)
     coreferences = []
@@ -195,7 +196,7 @@ def coreferences_phrase(phrase: str or spacy.tokens.doc.Doc, cache: bool):
 
 
 def affichier_antecedents_dans_phrase(phrase: str, cache: bool):
-    nlp = fr_core_news_sm.load()
+    nlp = custom_tokenizer.nlp_loader()
     phrase = nlp(phrase)
     coreferences = coreferences_phrase(phrase, cache)
     phrase_antecedents = ''

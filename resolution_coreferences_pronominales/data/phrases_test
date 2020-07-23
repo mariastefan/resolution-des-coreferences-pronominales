@@ -1,3 +1,9 @@
+Le logiciel de traduction ne tient pas compte du contexte pour traduire un mot, ce qui peut résulter en des faux sens flagrants.
+[['ce qui', 'Le logiciel de traduction ne tient pas compte du contexte pour traduire un mot']]
+Adrien voudrait plus de gateau. Il est culotté celui-là.
+[['Il', 'adrien'], ['celui-là', 'adrien']]
+Adrien voudrait plus de gateau. Il est culotté celui-ci.
+[['Il', 'adrien'], ['celui-ci', 'adrien']]
 Le chien est tombé dans le puits. Il a aboyé toute la nuit.
 [['Il', 'chien']]
 Le chien est tombé dans le puits. Il est profond.
@@ -10,7 +16,13 @@ Le chien est tombé dans le puits. Il s'est cassé le museau. Il va ainsi reteni
 [['Il', 'chien'], ["s'", 'chien'], ['Il', 'chien']]
 Jean est entré. Il s'est assis toute de suite.
 [['Il', 'Jean'], ["s'", 'Jean']]
-Adrien voudrait plus de gateau. Il est culotté celui-là.
-[['Il', 'adrien'], ['celui', 'adrien']]
 Hugo s'est acheté une bicyclette. Ce moyen de transport est très écologique.
 [["s'", 'Hugo']]
+Aujourd'hui Volodia est tombé car Julien a crié. Il est méchant celui-ci. L'intelligence artificielle est passionnante.
+[['Il', 'Julien'], ['celui-ci', 'Julien']]
+Aujourd'hui Maria est tombé car Julien a crié. Il est méchant celui-là. Anna aime l'intelligence artificielle. Elle trouve qu'elle est passionnante.
+[['Il', 'Julien'], ['Elle', 'Anna'], ['elle', 'intelligence artificielle']]
+J'aime lire tous les soirs une bande dessinée, cela permet de me détendre.
+[['cela', 'lire tous les soirs une bande dessinée']]
+Le professeur veut que je rédige un compte rendu. Il veut que je me dépeche.
+[['Il', 'professeur']]
