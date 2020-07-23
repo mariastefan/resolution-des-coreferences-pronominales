@@ -7,30 +7,6 @@ import os
 import sys
 import pickle
 from resolution_coreferences_pronominales.coreferences import cache
-import signal
-from contextlib import contextmanager
-
-
-@contextmanager
-def timeout(time):
-    # Register a function to raise a TimeoutError on the signal.
-    signal.signal(signal.SIGALRM, raise_timeout)
-    # Schedule the signal to be sent after ``time``.
-    signal.alarm(time)
-
-    try:
-        yield
-    except TimeoutError:
-        sys.exit('jdm a mis trop de temps à répondre')
-    finally:
-        # Unregister the signal so it won't be triggered
-        # if the timeout is not reached.
-        signal.signal(signal.SIGALRM, signal.SIG_IGN)
-
-
-def raise_timeout(signum, frame):
-    raise TimeoutError
-
 
 # Fonction permettant l'insertion du mot rq_word dans l'URL lors de la requete à jdm
 # Il n'y a pas de raison d'utiliser cette fonction seule
@@ -52,27 +28,26 @@ def extraction_html(rq_word: str, type_relation: str):
     rq_word_converti = conversion_mot(rq_word)
     nombre_essais = 3
     while True:
-        with timeout(5):
-            try:
-                if type_relation == 'all':
-                    html = requests.get(adresse + rq_word_converti + '&rel=')
-                else:
-                    html = requests.get(adresse + rq_word_converti + '&rel=' + type_relation)
-                break
+        try:
+            if type_relation == 'all':
+                html = requests.get(adresse + rq_word_converti + '&rel=')
+            else:
+                html = requests.get(adresse + rq_word_converti + '&rel=' + type_relation)
+            break
 
-            except Exception as erreur:
-                if not erreur.args:
-                    print('\033[36m' + '\nIl y a eu une erreur de connexion a jdm pour le mot ' +
-                          '\033[4m' + rq_word + '\033[0m' + '\033[36m' + '. On réessaie.' + '\033[0m')
-                else:
-                    print(str(erreur.args) + '\033[36m' + '\nIl y a eu une erreur de connexion a jdm pour le mot ' +
-                          '\033[4m' + rq_word + '\033[0m' + '\033[36m' + '. On réessaie.' + '\033[0m')
-                if nombre_essais == 0:
-                    sys.exit('Il y a eu trop de tentatives de connexion à jdm pour le mot ' + rq_word + '. Abandon.')
-                else:
-                    sleep(1)
-                    pass
-            nombre_essais -= 1
+        except Exception as erreur:
+            if not erreur.args:
+                print('\033[36m' + '\nIl y a eu une erreur de connexion a jdm pour le mot ' +
+                      '\033[4m' + rq_word + '\033[0m' + '\033[36m' + '. On réessaie.' + '\033[0m')
+            else:
+                print(str(erreur.args) + '\033[36m' + '\nIl y a eu une erreur de connexion a jdm pour le mot ' +
+                      '\033[4m' + rq_word + '\033[0m' + '\033[36m' + '. On réessaie.' + '\033[0m')
+            if nombre_essais == 0:
+                sys.exit('Il y a eu trop de tentatives de connexion à jdm pour le mot ' + rq_word + '. Abandon.')
+            else:
+                sleep(1)
+                pass
+        nombre_essais -= 1
 
     # encoding = html.encoding if 'charset' in html.headers.get('content-type', '').lower() else None
     soup = BeautifulSoup(html.content, 'html.parser', from_encoding='iso-8859-1')
