@@ -9,3 +9,5 @@ resolution_coreferences_pronominales/tests/tests-spacy.py
 uninstall.sh
 
 resolution_coreferences_pronominales/data/phrases_tmp
+
+resolution_coreferences_pronominales/data/brouillon
