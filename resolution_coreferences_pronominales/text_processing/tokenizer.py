@@ -1,7 +1,7 @@
 import re
 import json
 
-json_path = 'compound_words.json'
+json_path = 'data/compound_words.json'
 
 
 def tokenizer(text: str):

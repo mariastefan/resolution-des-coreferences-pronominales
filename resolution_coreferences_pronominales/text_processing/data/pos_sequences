@@ -1,0 +1,386 @@
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Pro:Pers: Ver:Conjug Adv: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Adv: Pro:Pers: Ver:Conjug Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Adj: Nom: Pre: Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Pro:Pers: Ver:Conjug Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Pro:Pers: Ver:Conjug Adv:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Adv: Pro:Pers: Ver:Conjug
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Adv: Pre: Det: Nom: Punct:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Adv: Pre: Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Adv: Ver:Conjug Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Ver:Conjug Adv: Punct:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Det: Nom: Adv: Punct:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Adv: Det: Nom: Punct:
+Det: Adj: Nom: Pre: Det: Nom: Ver:Conjug Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Adj: Nom: Pre: Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Pre: Det: Nom: Adj: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Pre: Det: Adj: Nom: Punct:
+Det: Nom: Pre: Det: Nom: Pro:RelPro: Ver:Conjug Ver:Conjug Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Nom: Pre: Det: Nom: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Adj: Nom: Pre: Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Pro:Pers: Ver:Conjug
+Pro:Pers:SUJ Ver:Inf Adv: Ver:PPas Adv: Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Inf Ver:PPas Adv: Det: Adj: Nom: Punct:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Pre: Det: Nom: Punct:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Pre: Det: Nom: Punct:
+Det: Nom: Pro:Pers:COD Ver:Conjug Adv: Pre: Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Ver:Conjug Punct:
+Det: Nom: Ver:Conjug Det: Adj: Nom: Conj: Ver:Conjug Punct:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Adv: Pre: Det: Nom:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Adv: Pre: Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Adv: Ver:Conjug
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Ver:Conjug Adv:
+Det: Nom: Ver:Conjug Adj:Pos Nom: Pre: Det: Nom: Punct:
+Det: Nom: Pre: Det: Nom: Pro:Rel Pro: Ver:Conjug Punct:
+Det: Nom: Pre: Det: Nom: Ver:Conjug Pre: Ver:Inf Punct:
+Conj: Det: Adj: Nom: Ver:Conjug Det: Nom: Adv: Punct:
+Conj: Det: Adj: Nom: Ver:Conjug Adv: Det: Nom: Punct:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Adj: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Conj: Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Pre: Det: Nom: Punct:
+Det: Adj: Nom: Adj: Ver:Conjug Det: Nom: Adv: Punct:
+Det: Adj: Nom: Adj: Ver:Conjug Adv: Det: Nom: Punct:
+Det: Nom: Pre: Det: Nom: Ver:Conjug Det: Nom: Punct:
+Det: Adj: Nom: Ver:Conjug Det: Adj: Nom: Adj: Punct:
+Det: Adj: Nom: Ver:Conjug Det: Nom: Adj: Adj: Punct:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Det: Nom: Adv:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Adv: Det: Nom:
+Det: Adj: Nom: Pre: Det: Nom: Ver:Conjug Det: Nom:
+Det: Nom: Ver:Conjug Det: Adj: Nom: Pre: Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Pre: Det: Nom: Adj:
+Det: Nom: Ver:Conjug Det: Nom: Pre: Det: Adj: Nom:
+Det: Adj: Nom: Ver: Ver:PPas Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Adv: Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Conjug Ver:PPas Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Ver:Conjug Adv: Ver:PPas Adv: Det: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Conjug Ver:PPas Adv: Det: Nom: Punct:
+Det: Nom: Pre: Det: Nom: Pro:RelPro: Ver:Conjug Ver:Conjug
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Nom: Pre: Det: Nom:
+Pro:Pers:SUJ Ver:Inf Adv: Ver:PPas Adv: Det: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Inf Ver:PPas Adv: Det: Nom: Punct:
+Det: Nom: Pro:Pers:COD Ver:Conjug Pre: Det: Nom: Punct:
+Ver:Conjug Pre: Ver:Inf Adj:Card Nom: Pre: Nom: Punct:
+Pro:Pers:SUJ Ver:Inf Adv: Ver:PPas Adv: Det: Adj: Nom:
+Pro:Pers:SUJ Adv: Ver:Inf Ver:PPas Adv: Det: Adj: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Conj: Ver:Conjug Punct:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Pre: Det: Nom:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Pre: Det: Nom:
+Det: Nom: Pro:Pers:COD Ver:Conjug Adv: Pre: Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Ver:Conjug
+Det: Nom: Ver:Conjug Det: Adj: Nom: Conj: Ver:Conjug
+Det: Nom: Ver:Conjug Adj:Pos Nom: Pre: Det: Nom:
+Conj: Det: Nom: Ver:Conjug Det: Nom: Adv: Punct:
+Conj: Det: Nom: Ver:Conjug Adv: Det: Nom: Punct:
+Conj: Det: Adj: Nom: Ver:Conjug Det: Nom: Punct:
+Det: Nom: Pre: Det: Nom: Pro:Rel Pro: Ver:Conjug
+Det: Nom: Pre: Det: Nom: Ver:Conjug Pre: Ver:Inf
+Det: Adj: Nom: Ver:Conjug Det: Nom: Adv: Punct:
+Det: Adj: Nom: Ver:Conjug Adv: Det: Nom: Punct:
+Det: Adj: Nom: Adj: Ver:Conjug Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Adj: Nom: Adj: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Adj: Punct:
+Det: Adj: Nom: Ver:Conjug Det: Adj: Nom: Punct:
+Det: Adj: Nom: Ver:Conjug Det: Nom: Adj: Punct:
+Ver:Conjug Adv: Pre: Det: Adj: Nom: Adj: Punct:
+Det: Adj: Nom: Adj: Pre: Nom: Ver:Conjug Punct:
+Conj: Det: Adj: Nom: Ver:Conjug Det: Nom: Adv:
+Conj: Det: Adj: Nom: Ver:Conjug Adv: Det: Nom:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Conj: Adj:
+Det: Nom: Ver:Conjug Det: Nom: Conj: Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Pre: Det: Nom:
+Det: Adj: Nom: Adj: Ver:Conjug Det: Nom: Adv:
+Det: Adj: Nom: Adj: Ver:Conjug Adv: Det: Nom:
+Det: Nom: Pre: Det: Nom: Ver:Conjug Det: Nom:
+Det: Adj: Nom: Ver:Conjug Det: Adj: Nom: Adj:
+Det: Adj: Nom: Ver:Conjug Det: Nom: Adj: Adj:
+Det: Adj: Nom: Ver: Ver:PPas Det: Nom: Punct:
+Det: Nom: Ver: Ver:PPas Det: Adj: Nom: Punct:
+Det: Adj: Nom: Ver: Ver:PPas Det: Adj: Nom:
+Pre: Nom: Pre: Adj: Nom: Pre: Nom: Punct:
+Pre: Nom: Det: Adj: Nom: Pre: Nom: Punct:
+Pre: Nom: Pre: Nom: Adj: Pre: Nom: Punct:
+Pre: Nom: Det: Nom: Adj: Pre: Nom: Punct:
+Pre: Nom: Pre: Nom: Pre: Nom: Adj: Punct:
+Pre: Nom: Det: Nom: Pre: Nom: Adj: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Nom: Adj: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Adv: Adv: Det: Punct:
+Pro:Pers:SUJ Adv: Ver:Conjug Ver:PPas Adv: Det: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Adv: Det: Adj: Nom:
+Pro:Pers:SUJ Adv: Ver:Conjug Ver:PPas Det: Adj: Nom:
+Pro:Pers:SUJ Ver:Conjug Adv: Ver:PPas Adv: Det: Nom:
+Pro:Pers:SUJ Adv: Ver:Conjug Ver:PPas Adv: Det: Nom:
+Pro:Pers:SUJ Ver:Inf Adv: Ver:PPas Adv: Det: Punct:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Adv: Punct:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Adv: Punct:
+Pro:Pers:SUJ Ver:Conjug Adv: Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Conjug Det: Adj: Nom: Punct:
+Pro:Pers:SUJ Ver:Inf Adv: Ver:PPas Adv: Det: Nom:
+Pro:Pers:SUJ Adv: Ver:Inf Ver:PPas Adv: Det: Nom:
+Det: Nom: Pro:Pers:COD Ver:Conjug Pre: Det: Nom:
+Ver:Conjug Pre: Ver:Inf Adj:Card Nom: Pre: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Conj: Ver:Conjug
+Det: Adj: Nom: Adj: Ver:Conjug Ver:PPas Punct:
+Conj: Ver:Conjug Pre: Det: Nom: Punct: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Punct: Punct:
+Conj: Det: Nom: Ver:Conjug Det: Nom: Punct:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug Punct:
+Conj: Pro: Ver:Conjug Adv: Det: Nom: Punct:
+Conj: Pro: Ver:Conjug Det: Nom: Adv: Punct:
+Ver:Conjug Det: Nom: Pre: Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adv: Punct:
+Det: Nom: Ver:Conjug Adv: Det: Nom: Punct:
+Det: Adj: Nom: Ver:Conjug Det: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Adj: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Punct:
+Ver:Conjug Pre: Det: Adj: Nom: Adj: Punct:
+Ver:Conjug Adv: Pre: Det: Adj: Nom: Punct:
+Ver:Conjug Adv: Pre: Det: Nom: Adj: Punct:
+Det: Adj: Nom: Pre: Nom: Ver:Conjug Punct:
+Det: Nom: Adj: Pre: Nom: Ver:Conjug Punct:
+Conj: Det: Nom: Ver:Conjug Det: Nom: Adv:
+Conj: Det: Nom: Ver:Conjug Adv: Det: Nom:
+Conj: Det: Adj: Nom: Ver:Conjug Det: Nom:
+Det: Adj: Nom: Ver:Conjug Det: Nom: Adv:
+Det: Adj: Nom: Ver:Conjug Adv: Det: Nom:
+Det: Adj: Nom: Adj: Ver:Conjug Det: Nom:
+Det: Nom: Ver:Conjug Det: Adj: Nom: Adj:
+Det: Nom: Ver:Conjug Det: Nom: Adj: Adj:
+Det: Adj: Nom: Ver:Conjug Det: Adj: Nom:
+Det: Adj: Nom: Ver:Conjug Det: Nom: Adj:
+Ver:Conjug Adv: Pre: Det: Adj: Nom: Adj:
+Det: Adj: Nom: Adj: Ver: Ver:PPas Punct:
+Det: Nom: Ver: Ver:PPas Det: Nom: Punct:
+Det: Adj: Nom: Adj: Pre: Nom: Ver:Conjug
+Det: Adj: Nom: Ver: Ver:PPas Det: Nom:
+Det: Nom: Ver: Ver:PPas Det: Adj: Nom:
+Det: Nom: Adj: Pre: Det: Nom: Punct:
+Pre: Nom: Pre: Nom: Pre: Nom: Punct:
+Pre: Nom: Det: Nom: Pre: Nom: Punct:
+Pre: Nom: Pre: Adj: Nom: Pre: Nom:
+Pre: Nom: Det: Adj: Nom: Pre: Nom:
+Pre: Nom: Pre: Nom: Adj: Pre: Nom:
+Pre: Nom: Det: Nom: Adj: Pre: Nom:
+Pre: Nom: Pre: Nom: Pre: Nom: Adj:
+Pre: Nom: Det: Nom: Pre: Nom: Adj:
+Nom: VerbalMode:Conditionnel Adv: Det: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Inf Ver:PPas Adv:Det: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Nom: Punct:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Nom: Adj:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Adj: Nom:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Adv: Adv: Det:
+Pro:Pers:SUJ Adv: Ver:Conjug Ver:PPas Adv: Det:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Punct:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Punct:
+Det: Nom: Pro:Pers:COD Ver:Conjug Adv: Punct:
+Pro:Pers:SUJ Ver:Conjug Adv: Det: Nom: Punct:
+Pro:Pers:SUJ Adv: Ver:Conjug Det: Nom: Punct:
+Ver:Conjug Conj: Ver:Conjug Det: Nom: Punct:
+Ver:Conjug Pre: Ver:Inf Adj:Card Nom: Punct:
+Pro:Pers:SUJ Ver:Inf Adv: Ver:PPas Adv: Det:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug Adv:
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug Adv:
+Pro:Pers:SUJ Ver:Conjug Adv: Det: Adj: Nom:
+Pro:Pers:SUJ Adv: Ver:Conjug Det: Adj: Nom:
+Det: Nom: Adj: Ver:Conjug Ver:PPas Punct:
+Det: Adj: Nom: Ver:Conjug Ver:PPas Punct:
+Det: Nom: Ver:Conjug Adj:Pos Nom: Punct:
+Pro:COD Ver:Conjug Pre: Det: Nom: Punct:
+Det: Nom: Pre: Pro:Rel Ver:Conjug Punct:
+Det: Nom: Ver:Conjug Pre: Ver:Inf Punct:
+Det: Adj: Nom: Adj: Ver:Conjug Ver:PPas
+Conj: Det: Adj: Nom: Ver:Conjug Punct:
+Conj: Pro: Ver:Conjug Det: Nom: Punct:
+Ver:Inf Adj:Card Nom: Pre: Nom: Punct:
+Conj: Ver:Conjug Pre: Det: Nom: Punct:
+Det: Adj: Nom: Adj: Ver:Conjug Punct:
+Det: Nom: Ver:Conjug Det: Nom: Punct:
+Pro: Ver:Conjug Adv: Det: Nom: Punct:
+Pro: Ver:Conjug Det: Nom: Adv: Punct:
+Ver:Conjug Det: Adj: Nom: Adv: Punct:
+Ver:Conjug Det: Nom: Adj: Adv: Punct:
+Ver:Conjug Adv: Det: Adj: Nom: Punct:
+Ver:Conjug Adv: Det: Nom: Adj: Punct:
+Ver:Conjug Pre: Det: Adj: Nom: Punct:
+Ver:Conjug Pre: Det: Nom: Adj: Punct:
+Det: Nom: Pre: Nom: Ver:Conjug Punct:
+Conj: Det: Nom: Ver:Conjug Det: Nom:
+Conj: Det: Adj: Nom: Adj: Ver:Conjug
+Conj: Pro: Ver:Conjug Adv: Det: Nom:
+Conj: Pro: Ver:Conjug Det: Nom: Adv:
+Ver:Conjug Det: Nom: Pre: Det: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Adv:
+Det: Nom: Ver:Conjug Adv: Det: Nom:
+Det: Adj: Nom: Ver:Conjug Det: Nom:
+Ver: Adj:Card Nom: Pre: Nom: Punct:
+Det: Nom: Ver:Conjug Det: Adj: Nom:
+Det: Nom: Ver:Conjug Det: Nom: Adj:
+Ver:Conjug Pre: Det: Adj: Nom: Adj:
+Ver:Conjug Adv: Pre: Det: Adj: Nom:
+Ver:Conjug Adv: Pre: Det: Nom: Adj:
+Det: Adj: Nom: Ver: Ver:PPas Punct:
+Det: Nom: Adj: Ver: Ver:PPas Punct:
+Det: Adj: Nom: Pre: Nom: Ver:Conjug
+Det: Nom: Adj: Pre: Nom: Ver:Conjug
+Det: Adj: Nom: Adj: Ver: Ver:PPas
+Det: Nom: Ver: Ver:PPas Det: Nom:
+Det: Nom: Conj: Det: Nom: Punct:
+Det: Nom: Adj: Pre: Nom: Punct:
+Det: Nom: Pre: Det: Nom: Punct:
+Pre: Det: Adj: Nom: Adj: Punct:
+Det: Nom: Adj: Pre: Det: Nom:
+Pre: Nom: Pre: Nom: Pre: Nom:
+Pre: Nom: Det: Nom: Pre: Nom:
+Nom: VerbalMode:Conditionnel Adv: Det: Nom:
+Pro:Pers:SUJ Adv: Ver:Inf Ver:PPas Adv:Det:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Det: Nom:
+Det: Nom: Pro:Pers:COD Ver:Conjug Punct:
+Pro:Pers:SUJ Ver:Conjug Adv: Det: Punct:
+Pro:Pers:SUJ Adv: Ver:Conjug Det: Punct:
+Det: Adj: Nom: Pro:Pers:COD Ver:Conjug
+Det: Nom: Adj: Pro:Pers:COD Ver:Conjug
+Det: Nom: Pro:Pers:COD Ver:Conjug Adv:
+Pro:Pers:SUJ Ver:Conjug Adv: Det: Nom:
+Pro:Pers:SUJ Adv: Ver:Conjug Det: Nom:
+Ver:Conjug Conj: Ver:Conjug Det: Nom:
+Ver:Conjug Pre: Ver:Inf Adj:Card Nom:
+Det: Nom: Ver:Conjug Ver:PPas Punct:
+Pro:COD Ver:Conjug Det: Nom: Punct:
+Det: Nom: Adj: Ver:Conjug Ver:PPas
+Det: Adj: Nom: Ver:Conjug Ver:PPas
+Det: Nom: Ver:Conjug Adj:Pos Nom:
+Conj: Det: Nom: Ver:Conjug Punct:
+Pro:COD Ver:Conjug Pre: Det: Nom:
+Det: Nom: Pre: Pro:Rel Ver:Conjug
+Det: Nom: Ver:Conjug Pre: Ver:Inf
+Det: Adj: Nom: Ver:Conjug Punct:
+Pro: Ver:Conjug Det: Nom: Punct:
+Ver:Conjug Pre: Det: Nom: Punct:
+Ver:Conjug Det: Adj: Nom: Punct:
+Ver:Conjug Det: Nom: Adj: Punct:
+Conj: Det: Adj: Nom: Ver:Conjug
+Conj: Pro: Ver:Conjug Det: Nom:
+Ver:Inf Adj:Card Nom: Pre: Nom:
+Conj: Ver:Conjug Pre: Det: Nom:
+Det: Adj: Nom: Adj: Ver:Conjug
+Det: Nom: Ver:Conjug Det: Nom:
+Pro: Ver:Conjug Adv: Det: Nom:
+Pro: Ver:Conjug Det: Nom: Adv:
+Ver:Conjug Det: Adj: Nom: Adv:
+Ver:Conjug Det: Nom: Adj: Adv:
+Ver:Conjug Adv: Det: Adj: Nom:
+Ver:Conjug Adv: Det: Nom: Adj:
+Ver:Conjug Pre: Det: Adj: Nom:
+Ver:Conjug Pre: Det: Nom: Adj:
+Det: Nom: Ver: Ver:PPas Punct:
+Ver: Ver:PPas Det: Nom: Punct:
+Det: Nom: Pre: Nom: Ver:Conjug
+Ver:Inf Pre: Det: Nom: Punct:
+Pre: Ver:Inf Det: Nom: Punct:
+Ver: Adj:Card Nom: Pre: Nom:
+Det: Adj: Nom: Ver: Ver:PPas
+Det: Nom: Adj: Ver: Ver:PPas
+Conj: Det: Nom: Adv: Punct:
+Det: Nom: Pre: Nom: Punct:
+Det: Adj: Pre: Nom: Punct:
+Pre: Det: Adj: Nom: Punct:
+Pre: Det: Nom: Adj: Punct:
+Pre: Nom: Pre: Nom: Punct:
+Pre: Nom: Det: Nom: Punct:
+Adj: Nom: Pre: Nom: Punct:
+Nom: Adj: Pre: Nom: Punct:
+Det: Nom: Conj: Det: Nom:
+Det: Nom: Adj: Pre: Nom:
+Det: Nom: Pre: Det: Nom:
+Pre: Det: Adj: Nom: Adj:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas Punct:
+Pro:Pers:SUJ Ver:Conjug Adj: Punct:
+Ver:Conjug Conj: Ver:Conjug Punct:
+Det: Nom: Pro:Pers:COD Ver:Conjug
+Pro:Pers:SUJ Ver:Conjug Adv: Det:
+Pro:Pers:SUJ Adv: Ver:Conjug Det:
+Pro:Pers:SUJ Ver: Ver:PPas Punct:
+Ver:Conjug Pre: Ver:PPre Punct:
+Pro: Ver:Conjug Ver:PPas Punct:
+Ver:Conjug Pre: Ver:Inf Punct:
+Det: Nom: Ver:Conjug Ver:PPas
+Pro:Pers:SUJ Ver: Adj: Punct:
+Conj: Pro: Ver:Conjug Punct:
+Pro:COD Ver:Conjug Det: Nom:
+Ver:Inf Pre: Ver:PPre Punct:
+Ver:Inf Adj:Card Nom: Punct:
+Det: Nom: Ver:Conjug Punct:
+Ver:Conjug Det: Nom: Punct:
+Pro: Ver:Conjug Adj: Punct:
+Conj: Det: Nom: Ver:Conjug
+Ver:PPas Pre: Nom: Punct:
+Det: Adj: Nom: Ver:Conjug
+Pro: Ver:Conjug Det: Nom:
+Ver: Adj:Card Nom: Punct:
+Ver:Conjug Pre: Det: Nom:
+Ver:Conjug Det: Adj: Nom:
+Ver:Conjug Det: Nom: Adj:
+Pro: Ver: Ver:PPas Punct:
+Det: Nom: Ver: Ver:PPas
+Ver: Ver:PPas Det: Nom:
+Conj: Det: Nom: Punct:
+Ver:Inf Pre: Det: Nom:
+Pre: Ver:Inf Det: Nom:
+Det: Nom: Adj: Punct:
+Det: Adj: Nom: Punct:
+Pre: Det: Nom: Punct:
+Pro: Ver: Adj: Punct:
+Conj: Det: Nom: Adv:
+Det: Nom: Pre: Nom:
+Det: Adj: Pre: Nom:
+Pre: Det: Adj: Nom:
+Pre: Det: Nom: Adj:
+Pre: Nom: Pre: Nom:
+Pre: Nom: Det: Nom:
+Adj: Nom: Pre: Nom:
+Nom: Adj: Pre: Nom:
+Pro:Pers:SUJ Ver:Conjug Ver:PPas
+Pro:Pers:SUJ Ver:Conjug Adj:
+Ver:Conjug Conj: Ver:Conjug
+Pro:Pers:SUJ Ver:Inf Punct:
+Pro:Pers:SUJ Ver: Ver:PPas
+Ver:Conjug Ver:Inf Punct:
+Ver:Conjug Pre: Ver:PPre
+Pro: Ver:Conjug Ver:PPas
+Ver:Conjug Pre: Ver:Inf
+Conj: Ver:Conjug Punct:
+Ver:Inf Ver:PPas Punct:
+Ver:Inf Ver:Inf Punct:
+Pro: Ver:Conjug Punct:
+Pro:Pers:SUJ Ver: Adj:
+Conj: Pro: Ver:Conjug
+Ver:Inf Pre: Ver:PPre
+Ver:Inf Adj:Card Nom:
+Numeric: Nom: Punct:
+Det: Nom: Ver:Conjug
+Ver:Conjug Det: Nom:
+Conj: Ver:Inf Punct:
+Pro: Ver:Conjug Adj:
+Adj:Pos Nom: Punct:
+Pre: Ver:Inf Punct:
+Ver:PPas Pre: Nom:
+Ver: Adj:Card Nom:
+Pro: Ver: Ver:PPas
+Det: Nom: Punct:
+Conj: Det: Nom:
+Det: Nom: Adj:
+Det: Adj: Nom:
+Pre: Det: Nom:
+Pro: Ver: Adj:
+Pro:Pers:SUJ Ver:Inf
+Ver:Conjug Ver:Inf
+Conj: Ver:Conjug
+Ver:Inf Ver:PPas
+Ver:Inf Ver:Inf
+Pro: Ver:Conjug
+Numeric: Nom:
+Conj: Ver:Inf
+Adj:Pos Nom:
+Pre: Ver:Inf
+Det: Nom:

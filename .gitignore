@@ -13,3 +13,9 @@ resolution_coreferences_pronominales/data/phrases_tmp
 resolution_coreferences_pronominales/data/brouillon
 
 resolution_coreferences_pronominales/text_processing/details_pos.txt
+
+resolution_coreferences_pronominales/text_processing/data/all-POS-from-jdm.txt
+
+resolution_coreferences_pronominales/text_processing/data/JDM-all-IS_POS-relations.txt
+
+resolution_coreferences_pronominales/text_processing/extract-all-POS-from-jdm.py
