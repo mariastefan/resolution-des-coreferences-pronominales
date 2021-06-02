@@ -20,7 +20,7 @@ spacy==2.2.4
 srsly==1.0.2
 thinc==7.4.0
 tqdm==4.46.0
-urllib3==1.25.9
+urllib3==1.26.5
 wasabi==0.6.0
 models/fr_core_news_sm-2.2.5.tar.gz
 models/fr_core_news_md-2.2.5.tar.gz
